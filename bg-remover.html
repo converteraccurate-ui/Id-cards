@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online background remover tool - Remove image backgrounds automatically or manually. Mobile-friendly, secure, and easy to use.">
+    <title>Background Remover - Remove Image Backgrounds | ToolHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --baby-pink: #FFD6E0;
+            --baby-pink-dark: #FFB6C1;
+            --baby-pink-darker: #FFC0CB;
+            --white: #ffffff;
+            --off-white: #f8f8f8;
+            --dark: #222222;
+            --gray: #666666;
+            --light-gray: #e0e0e0;
+            --border-radius: 12px;
+            --border-radius-xl: 20px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            color: var(--baby-pink-darker);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .nav-link:hover {
+            color: var(--baby-pink-darker);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--baby-pink) 0%, var(--off-white) 100%);
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--gray);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .editor-container {
+            flex: 1;
+            background: var(--white);
+            border-radius: var(--border-radius-xl);
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .upload-area {
+            border: 2px dashed var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: var(--baby-pink-darker);
+            background-color: var(--off-white);
+        }
+
+        .upload-area.active {
+            border-color: var(--baby-pink-darker);
+            background-color: var(--baby-pink);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--baby-pink-darker);
+            margin-bottom: 15px;
+        }
+
+        .upload-text h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .upload-text p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--baby-pink-darker);
+            color: var(--dark);
+            border-radius: var(--border-radius-xl);
+            font-weight: 700;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            background-color: var(--baby-pink-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        .btn:disabled {
+            background: var(--light-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            color: var(--gray);
+        }
+
+        .preview-section {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .preview-box {
+            flex: 1;
+            text-align: center;
+        }
+
+        .preview-box h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 250px;
+            background: var(--off-white);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid var(--light-gray);
+        }
+
+        .preview-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .placeholder-text {
+            color: var(--gray);
+        }
+
+        .tools-section {
+            margin-top: 30px;
+        }
+
+        .tools-section h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .tool-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .tool-option {
+            background: var(--off-white);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .tool-option:hover {
+            background: var(--baby-pink);
+        }
+
+        .tool-option.active {
+            border-color: var(--baby-pink-darker);
+            background: var(--baby-pink);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: var(--baby-pink-darker);
+            margin-bottom: 10px;
+        }
+
+        .tool-name {
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .color-picker {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .color-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: var(--dark);
+        }
+
+        .custom-color {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .custom-color input {
+            width: 40px;
+            height: 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .brush-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .brush-size {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brush-size input {
+            width: 120px;
+        }
+
+        .download-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .download-option {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            background: var(--off-white);
+            border-radius: var(--border-radius);
+            border: 2px solid transparent;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .download-option:hover {
+            background: var(--baby-pink);
+        }
+
+        .download-option.active {
+            border-color: var(--baby-pink-darker);
+            background: var(--baby-pink);
+        }
+
+        .download-icon {
+            font-size: 1.8rem;
+            color: var(--baby-pink-darker);
+            margin-bottom: 10px;
+        }
+
+        .download-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .download-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            flex: 0 0 350px;
+        }
+
+        .user-guide {
+            background: var(--white);
+            border-radius: var(--border-radius-xl);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .user-guide h2 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-guide h2 i {
+            color: var(--baby-pink-darker);
+        }
+
+        .guide-steps {
+            list-style: none;
+        }
+
+        .guide-step {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .guide-step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: var(--baby-pink-darker);
+            color: var(--dark);
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .guide-step h3 {
+            display: inline;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        .guide-step p {
+            margin-top: 10px;
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .supported-formats {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--baby-pink);
+            border-radius: var(--border-radius);
+        }
+
+        .supported-formats h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        .formats-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .format-tag {
+            background: var(--white);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--dark);
+            border: 1px solid var(--baby-pink-darker);
+        }
+
+        /* Features Section */
+        .features-section {
+            background: var(--white);
+            padding: 60px 0;
+            border-radius: var(--border-radius-xl);
+            margin-bottom: 60px;
+            box-shadow: var(--shadow);
+        }
+
+        .features-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: var(--dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--baby-pink-darker);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 2rem;
+            height: 2px;
+            background-color: var(--baby-pink);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            transition: var(--transition);
+            color: var(--light-gray);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--baby-pink);
+            padding-left: 0.3rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+
+        .privacy-note {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--baby-pink-darker);
+            color: var(--dark);
+            padding: 8px;
+            z-index: 1000;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                padding: 1.5rem;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                gap: 1rem;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            .preview-section {
+                flex-direction: column;
+            }
+
+            .tool-options {
+                grid-template-columns: 1fr;
+            }
+
+            .download-options {
+                flex-direction: column;
+            }
+
+            .brush-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .color-picker {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">
+                <span class="logo-icon">馃洜锔�</span>
+                <span>ToolHub</span>
+            </a>
+            
+            <nav>
+                <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">鈽�</button>
+                <ul class="nav-menu">
+                    <li><a href="/#tools" class="nav-link">Tools</a></li>
+                    <li><a href="/#benefits" class="nav-link">Why Choose Us</a></li>
+                    <li><a href="/#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="/contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Background Remover Tool</h1>
+            <p>Remove image backgrounds automatically or manually with precision. Add custom backgrounds and download in multiple quality options.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Editor Container -->
+            <div class="editor-container">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="upload-text">
+                        <h3>Upload Your Image</h3>
+                        <p>Drag & drop your image here or click to browse</p>
+                    </div>
+                    <input type="file" id="fileInput" class="file-input" accept="image/*">
+                    <button class="btn" id="browseBtn">Browse Files</button>
+                </div>
+
+                <!-- Preview Section -->
+                <div class="preview-section">
+                    <div class="preview-box">
+                        <h3>Original Image</h3>
+                        <div class="preview-image" id="originalPreview">
+                            <div class="placeholder-text">No image uploaded</div>
+                        </div>
+                    </div>
+                    <div class="preview-box">
+                        <h3>Result</h3>
+                        <div class="preview-image" id="resultPreview">
+                            <div class="placeholder-text">Processed image will appear here</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools Section -->
+                <div class="tools-section">
+                    <h3>Editing Tools</h3>
+                    <div class="tool-options">
+                        <div class="tool-option active" id="autoRemove">
+                            <div class="tool-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="tool-name">Auto Remove</div>
+                        </div>
+                        <div class="tool-option" id="manualBrush">
+                            <div class="tool-icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <div class="tool-name">Manual Brush</div>
+                        </div>
+                        <div class="tool-option" id="addBackground">
+                            <div class="tool-icon">
+                                <i class="fas fa-fill-drip"></i>
+                            </div>
+                            <div class="tool-name">Add Background</div>
+                        </div>
+                    </div>
+
+                    <!-- Manual Brush Controls -->
+                    <div class="brush-controls" id="brushControls" style="display: none;">
+                        <div class="brush-size">
+                            <label for="brushSize">Brush Size:</label>
+                            <input type="range" id="brushSize" min="1" max="50" value="10">
+                            <span id="brushSizeValue">10px</span>
+                        </div>
+                        <div class="brush-actions">
+                            <button class="btn btn-secondary" id="eraseBtn">Erase</button>
+                            <button class="btn btn-secondary" id="restoreBtn">Restore</button>
+                        </div>
+                    </div>
+
+                    <!-- Background Color Picker -->
+                    <div class="color-picker" id="colorPicker" style="display: none;">
+                        <div class="color-options">
+                            <div class="color-option active" style="background-color: #ffffff;" data-color="#ffffff"></div>
+                            <div class="color-option" style="background-color: #000000;" data-color="#000000"></div>
+                            <div class="color-option" style="background-color: #FFC0CB;" data-color="#FFC0CB"></div>
+                            <div class="color-option" style="background-color: #FFD6E0;" data-color="#FFD6E0"></div>
+                            <div class="color-option" style="background-color: #FFB6C1;" data-color="#FFB6C1"></div>
+                        </div>
+                        <div class="custom-color">
+                            <label for="customColor">Custom:</label>
+                            <input type="color" id="customColor" value="#FFC0CB">
+                        </div>
+                    </div>
+
+                    <!-- Process Button -->
+                    <button class="btn" id="processBtn" style="width: 100%; margin-top: 20px;" disabled>Process Image</button>
+                </div>
+
+                <!-- Download Options -->
+                <div class="download-options">
+                    <div class="download-option active" id="normalDownload">
+                        <div class="download-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="download-name">Normal Quality</div>
+                        <div class="download-desc">Smaller file size, faster download</div>
+                    </div>
+                    <div class="download-option" id="hdDownload">
+                        <div class="download-icon">
+                            <i class="fas fa-hd"></i>
+                        </div>
+                        <div class="download-name">HD Quality</div>
+                        <div class="download-desc">Higher resolution, better quality</div>
+                    </div>
+                </div>
+
+                <!-- Download Button -->
+                <button class="btn" id="downloadBtn" style="width: 100%; margin-top: 20px;" disabled>
+                    <i class="fas fa-download"></i> Download Image
+                </button>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- User Guide -->
+                <div class="user-guide">
+                    <h2><i class="fas fa-info-circle"></i> How to Use</h2>
+                    <ol class="guide-steps">
+                        <li class="guide-step">
+                            <span class="step-number">1</span>
+                            <h3>Upload Image</h3>
+                            <p>Click "Browse Files" or drag and drop your image. Supported formats: JPG, PNG, WEBP.</p>
+                        </li>
+                        <li class="guide-step">
+                            <span class="step-number">2</span>
+                            <h3>Choose Tool</h3>
+                            <p>Select Auto Remove for automatic background removal, or use Manual Brush for precision editing.</p>
+                        </li>
+                        <li class="guide-step">
+                            <span class="step-number">3</span>
+                            <h3>Customize Background</h3>
+                            <p>Use the color picker to add a custom background color to your image.</p>
+                        </li>
+                        <li class="guide-step">
+                            <span class="step-number">4</span>
+                            <h3>Download</h3>
+                            <p>Choose between Normal or HD quality and download your processed image.</p>
+                        </li>
+                    </ol>
+
+                    <div class="supported-formats">
+                        <h3>Supported Formats</h3>
+                        <div class="formats-list">
+                            <span class="format-tag">JPG</span>
+                            <span class="format-tag">PNG</span>
+                            <span class="format-tag">WEBP</span>
+                            <span class="format-tag">GIF</span>
+                            <span class="format-tag">BMP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2>Why Use Our Background Remover?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h3>AI-Powered Removal</h3>
+                        <p>Our advanced AI automatically detects and removes backgrounds with precision.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>Manual Editing</h3>
+                        <p>Fine-tune results with our manual brush tool for perfect edges.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3>Custom Backgrounds</h3>
+                        <p>Add solid color backgrounds or transparent backgrounds for versatile use.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h3>Multiple Formats</h3>
+                        <p>Download in Normal or HD quality to suit your needs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="/image-to-pdf">Image to PDF</a></li>
+                        <li><a href="/word-to-pdf">Word to PDF</a></li>
+                        <li><a href="/pdf-to-word">PDF to Word</a></li>
+                        <li><a href="/compress-pdf">Compress PDF</a></li>
+                        <li><a href="/merge-pdf">Merge PDF</a></li>
+                        <li><a href="/remove-pdf-pages">Remove PDF Pages</a></li>
+                        <li><a href="/edit-pdf">Edit PDF</a></li>
+                        <li><a href="/powerpoint-to-pdf">PowerPoint to PDF</a></li>
+                        <li><a href="/qr-generator">QR Code Generator</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="/help">Help Center</a></li>
+                        <li><a href="/faq">FAQ</a></li>
+                        <li><a href="mailto:support@example.com">Email Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 ToolHub. All rights reserved.</p>
+                <p class="privacy-note">We use necessary cookies to ensure our site functions properly. Your files are processed securely and deleted automatically.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const browseBtn = document.getElementById('browseBtn');
+            const originalPreview = document.getElementById('originalPreview');
+            const resultPreview = document.getElementById('resultPreview');
+            const processBtn = document.getElementById('processBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            // Tool Options
+            const autoRemove = document.getElementById('autoRemove');
+            const manualBrush = document.getElementById('manualBrush');
+            const addBackground = document.getElementById('addBackground');
+            const brushControls = document.getElementById('brushControls');
+            const colorPicker = document.getElementById('colorPicker');
+            
+            // Brush Controls
+            const brushSize = document.getElementById('brushSize');
+            const brushSizeValue = document.getElementById('brushSizeValue');
+            const eraseBtn = document.getElementById('eraseBtn');
+            const restoreBtn = document.getElementById('restoreBtn');
+            
+            // Color Picker
+            const colorOptions = document.querySelectorAll('.color-option');
+            const customColor = document.getElementById('customColor');
+            
+            // Download Options
+            const normalDownload = document.getElementById('normalDownload');
+            const hdDownload = document.getElementById('hdDownload');
+            
+            // Mobile Menu
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            let uploadedImage = null;
+            let currentTool = 'autoRemove';
+            let selectedColor = '#ffffff';
+            let downloadQuality = 'normal';
+            
+            // Event Listeners
+            browseBtn.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            // Mobile Menu Toggle
+            mobileMenuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+            });
+            
+            // Tool Selection
+            autoRemove.addEventListener('click', () => selectTool('autoRemove'));
+            manualBrush.addEventListener('click', () => selectTool('manualBrush'));
+            addBackground.addEventListener('click', () => selectTool('addBackground'));
+            
+            // Brush Controls
+            brushSize.addEventListener('input', updateBrushSize);
+            eraseBtn.addEventListener('click', () => activateBrushMode('erase'));
+            restoreBtn.addEventListener('click', () => activateBrushMode('restore'));
+            
+            // Color Selection
+            colorOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    colorOptions.forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                    selectedColor = option.getAttribute('data-color');
+                    updateBackgroundColor();
+                });
+            });
+            
+            customColor.addEventListener('input', () => {
+                selectedColor = customColor.value;
+                updateBackgroundColor();
+            });
+            
+            // Download Options
+            normalDownload.addEventListener('click', () => selectDownloadOption('normal'));
+            hdDownload.addEventListener('click', () => selectDownloadOption('hd'));
+            
+            // Process and Download
+            processBtn.addEventListener('click', processImage);
+            downloadBtn.addEventListener('click', downloadImage);
+            
+            // Drag and Drop
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('active');
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('active');
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('active');
+                
+                if (e.dataTransfer.files.length) {
+                    handleFiles(e.dataTransfer.files);
+                }
+            });
+            
+            // Functions
+            function handleFileSelect(e) {
+                if (e.target.files.length) {
+                    handleFiles(e.target.files);
+                }
+            }
+            
+            function handleFiles(files) {
+                const file = files[0];
+                
+                // Check if file is an image
+                if (!file.type.match('image.*')) {
+                    alert('Please select an image file.');
+                    return;
+                }
+                
+                uploadedImage = file;
+                
+                // Display preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    originalPreview.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    originalPreview.appendChild(img);
+                    
+                    // Enable process button
+                    processBtn.disabled = false;
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            function selectTool(tool) {
+                currentTool = tool;
+                
+                // Update active tool
+                autoRemove.classList.remove('active');
+                manualBrush.classList.remove('active');
+                addBackground.classList.remove('active');
+                
+                document.getElementById(tool).classList.add('active');
+                
+                // Show/hide controls
+                if (tool === 'manualBrush') {
+                    brushControls.style.display = 'flex';
+                    colorPicker.style.display = 'none';
+                } else if (tool === 'addBackground') {
+                    brushControls.style.display = 'none';
+                    colorPicker.style.display = 'flex';
+                } else {
+                    brushControls.style.display = 'none';
+                    colorPicker.style.display = 'none';
+                }
+            }
+            
+            function updateBrushSize() {
+                brushSizeValue.textContent = `${brushSize.value}px`;
+            }
+            
+            function activateBrushMode(mode) {
+                // In a real implementation, this would activate the brush mode on the canvas
+                alert(`Brush mode activated: ${mode}. In a real implementation, this would allow you to manually edit the image.`);
+            }
+            
+            function updateBackgroundColor() {
+                // In a real implementation, this would update the background color
+                if (currentTool === 'addBackground') {
+                    resultPreview.style.backgroundColor = selectedColor;
+                }
+            }
+            
+            function selectDownloadOption(quality) {
+                downloadQuality = quality;
+                
+                // Update active download option
+                normalDownload.classList.remove('active');
+                hdDownload.classList.remove('active');
+                
+                document.getElementById(`${quality}Download`).classList.add('active');
+            }
+            
+            function processImage() {
+                if (!uploadedImage) {
+                    alert('Please upload an image first.');
+                    return;
+                }
+                
+                // Simulate processing
+                processBtn.disabled = true;
+                processBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                
+                setTimeout(() => {
+                    // In a real implementation, this would process the image
+                    // For this demo, we'll just display the original image with a different background
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        resultPreview.innerHTML = '';
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        resultPreview.appendChild(img);
+                        
+                        if (currentTool === 'addBackground') {
+                            resultPreview.style.backgroundColor = selectedColor;
+                        } else {
+                            resultPreview.style.backgroundColor = 'transparent';
+                        }
+                        
+                        // Enable download button
+                        downloadBtn.disabled = false;
+                        
+                        // Reset process button
+                        processBtn.disabled = false;
+                        processBtn.textContent = 'Process Image';
+                    };
+                    reader.readAsDataURL(uploadedImage);
+                }, 2000);
+            }
+            
+            function downloadImage() {
+                if (!uploadedImage) {
+                    alert('Please process an image first.');
+                    return;
+                }
+                
+                // In a real implementation, this would download the processed image
+                alert(`Downloading ${downloadQuality} quality image. In a real implementation, this would download the actual processed file.`);
+                
+                // Simulate download
+                const downloadLink = document.createElement('a');
+                downloadLink.href = '#';
+                downloadLink.download = `background-removed-${downloadQuality}.png`;
+                downloadLink.click();
+            }
+        });
+    </script>
+</body>
+    </html>
