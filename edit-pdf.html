@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Edit PDF files online - add text, images, annotations and more. Free online PDF editor with no registration required.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://example.com/edit-pdf">
+    
+    <!-- Open Graph / Twitter Card -->
+    <meta property="og:title" content="Edit PDF - Online PDF Editor Tool">
+    <meta property="og:description" content="Edit PDF files online - add text, images, annotations and more.">
+    <meta property="og:image" content="https://example.com/og-image.jpg">
+    <meta property="og:url" content="https://example.com/edit-pdf">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <title>Edit PDF - Online PDF Editor Tool | ToolHub</title>
+    
+    <style>
+        /* Reset and base styles - Same as previous pages */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --baby-pink: #FFD6E0;
+            --baby-pink-dark: #FFB6C1;
+            --baby-pink-darker: #FFC0CB;
+            --white: #ffffff;
+            --off-white: #f8f8f8;
+            --dark: #222222;
+            --gray: #666666;
+            --light-gray: #e0e0e0;
+            --border-radius: 12px;
+            --border-radius-xl: 20px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4 {
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        section {
+            padding: 4rem 0;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-icon {
+            color: var(--baby-pink-darker);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover {
+            color: var(--baby-pink-darker);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* Tool Section */
+        .tool-hero {
+            background: linear-gradient(135deg, var(--baby-pink) 0%, var(--off-white) 100%);
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .tool-icon-large {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        
+        .tool-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        .tool-interface {
+            background-color: var(--white);
+            border-radius: var(--border-radius-xl);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--baby-pink);
+            border-radius: var(--border-radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--baby-pink-darker);
+            background-color: var(--off-white);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--baby-pink-darker);
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--baby-pink-darker);
+            color: var(--dark);
+            border-radius: var(--border-radius-xl);
+            font-weight: 700;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            background-color: var(--baby-pink-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-full {
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+        
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.9rem;
+        }
+        
+        .tool-info {
+            background-color: var(--off-white);
+            border-radius: var(--border-radius-xl);
+            padding: 2.5rem;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+        
+        .features-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-icon {
+            color: var(--baby-pink-darker);
+        }
+        
+        /* Edit Tools */
+        .edit-tools {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--off-white);
+            border-radius: var(--border-radius);
+            display: none;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .tool-option {
+            background: var(--white);
+            border: 2px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .tool-option:hover {
+            border-color: var(--baby-pink);
+            transform: translateY(-2px);
+        }
+        
+        .tool-option.active {
+            border-color: var(--baby-pink-darker);
+            background: var(--baby-pink);
+        }
+        
+        .tool-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        /* Editor Preview */
+        .editor-preview {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--off-white);
+            border-radius: var(--border-radius);
+            text-align: center;
+            display: none;
+        }
+        
+        .preview-area {
+            width: 100%;
+            height: 400px;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .preview-placeholder {
+            font-size: 4rem;
+            color: var(--gray);
+        }
+        
+        .preview-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .page-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .page-btn {
+            background: var(--white);
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .page-btn:hover {
+            background: var(--baby-pink);
+        }
+        
+        /* Edit Options */
+        .edit-options {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--off-white);
+            border-radius: var(--border-radius);
+            display: none;
+        }
+        
+        .option-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .option-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .color-picker {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .color-input {
+            width: 50px;
+            height: 40px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+        
+        .size-slider {
+            width: 100%;
+            margin: 0.5rem 0;
+        }
+        
+        .font-select, .size-select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+        }
+        
+        /* FAQ Section */
+        .faq {
+            background-color: var(--off-white);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 1rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .faq-question:hover {
+            background-color: var(--baby-pink);
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer.active {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+        
+        .faq-toggle {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-toggle.active {
+            transform: rotate(180deg);
+        }
+        
+        /* Related Tools */
+        .related-tools {
+            background-color: var(--white);
+        }
+        
+        .tools-grid-small {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .tool-card {
+            background-color: var(--off-white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tool-card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 2rem;
+            height: 2px;
+            background-color: var(--baby-pink);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            transition: var(--transition);
+            color: var(--light-gray);
+        }
+        
+        .footer-links a:hover {
+            color: var(--baby-pink);
+            padding-left: 0.3rem;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        .privacy-note {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--baby-pink-darker);
+            color: var(--dark);
+            padding: 8px;
+            z-index: 1000;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                padding: 1.5rem;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                gap: 1rem;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .tool-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .preview-area {
+                height: 300px;
+            }
+            
+            section {
+                padding: 3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">
+                <span class="logo-icon">馃洜锔�</span>
+                <span>ToolHub</span>
+            </a>
+            
+            <nav>
+                <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">鈽�</button>
+                <ul class="nav-menu">
+                    <li><a href="/" class="nav-link">Home</a></li>
+                    <li><a href="/#tools" class="nav-link">All Tools</a></li>
+                    <li><a href="/#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="#" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main id="main-content">
+        <!-- Tool Hero Section -->
+        <section class="tool-hero">
+            <div class="container">
+                <span class="tool-icon-large">鉁忥笍</span>
+                <h1>Edit PDF</h1>
+                <p>Edit PDF files online - add text, images, annotations and more</p>
+            </div>
+        </section>
+        
+        <!-- Tool Section -->
+        <section class="tool-section">
+            <div class="container">
+                <div class="tool-content">
+                    <div class="tool-interface">
+                        <h2>Edit Your PDF</h2>
+                        <p>Upload your PDF file and use our editing tools to make changes</p>
+                        
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">馃搧</div>
+                            <h3>Drag & Drop PDF File Here</h3>
+                            <p>or click to browse files</p>
+                            <p class="small">Supports PDF files (Max 50MB)</p>
+                            <input type="file" id="fileInput" class="file-input" accept=".pdf">
+                        </div>
+                        
+                        <div id="fileInfo" class="file-info" style="display: none; margin-bottom: 1.5rem;">
+                            <h3>Selected File:</h3>
+                            <p id="fileName"></p>
+                        </div>
+                        
+                        <div class="edit-tools" id="editTools">
+                            <h3>Editing Tools</h3>
+                            <p>Select a tool to start editing your PDF</p>
+                            
+                            <div class="tools-grid">
+                                <div class="tool-option" data-tool="text">
+                                    <span class="tool-icon">T</span>
+                                    <span>Add Text</span>
+                                </div>
+                                <div class="tool-option" data-tool="image">
+                                    <span class="tool-icon">馃柤锔�</span>
+                                    <span>Add Image</span>
+                                </div>
+                                <div class="tool-option" data-tool="highlight">
+                                    <span class="tool-icon">馃枍锔�</span>
+                                    <span>Highlight</span>
+                                </div>
+                                <div class="tool-option" data-tool="draw">
+                                    <span class="tool-icon">鉁忥笍</span>
+                                    <span>Draw</span>
+                                </div>
+                                <div class="tool-option" data-tool="shape">
+                                    <span class="tool-icon">猬�</span>
+                                    <span>Add Shapes</span>
+                                </div>
+                                <div class="tool-option" data-tool="signature">
+                                    <span class="tool-icon">馃摑</span>
+                                    <span>Add Signature</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="editor-preview" id="editorPreview">
+                            <h3>PDF Preview</h3>
+                            <div class="preview-area">
+                                <div class="preview-placeholder">馃搫</div>
+                                <img class="preview-image" id="previewImage" style="display: none;" alt="PDF Preview">
+                            </div>
+                            <div class="page-controls">
+                                <button class="page-btn" id="prevPage">Previous</button>
+                                <span id="pageInfo">Page 1 of 1</span>
+                                <button class="page-btn" id="nextPage">Next</button>
+                            </div>
+                        </div>
+                        
+                        <div class="edit-options" id="editOptions">
+                            <h3>Edit Options</h3>
+                            <div id="textOptions" class="tool-options" style="display: none;">
+                                <div class="option-group">
+                                    <label class="option-label">Text Content</label>
+                                    <textarea class="text-input" id="textContent" placeholder="Enter your text here..." rows="3"></textarea>
+                                </div>
+                                <div class="option-group">
+                                    <label class="option-label">Font</label>
+                                    <select class="font-select" id="fontSelect">
+                                        <option value="Arial">Arial</option>
+                                        <option value="Helvetica">Helvetica</option>
+                                        <option value="Times New Roman">Times New Roman</option>
+                                        <option value="Courier New">Courier New</option>
+                                    </select>
+                                </div>
+                                <div class="option-group">
+                                    <label class="option-label">Font Size</label>
+                                    <select class="size-select" id="fontSize">
+                                        <option value="12">12pt</option>
+                                        <option value="14">14pt</option>
+                                        <option value="16">16pt</option>
+                                        <option value="18">18pt</option>
+                                        <option value="20">20pt</option>
+                                        <option value="24">24pt</option>
+                                    </select>
+                                </div>
+                                <div class="option-group">
+                                    <label class="option-label">Text Color</label>
+                                    <div class="color-picker">
+                                        <input type="color" class="color-input" id="textColor" value="#000000">
+                                        <span>Color</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="imageOptions" class="tool-options" style="display: none;">
+                                <div class="option-group">
+                                    <label class="option-label">Upload Image</label>
+                                    <input type="file" id="imageUpload" class="file-input" accept="image/*">
+                                    <button class="btn btn-small" id="browseImage" style="margin-top: 0.5rem;">Browse Images</button>
+                                </div>
+                                <div class="option-group">
+                                    <label class="option-label">Image Size</label>
+                                    <select class="size-select" id="imageSize">
+                                        <option value="small">Small</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="large">Large</option>
+                                        <option value="custom">Custom</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div id="highlightOptions" class="tool-options" style="display: none;">
+                                <div class="option-group">
+                                    <label class="option-label">Highlight Color</label>
+                                    <div class="color-picker">
+                                        <input type="color" class="color-input" id="highlightColor" value="#FFFF00">
+                                        <span>Color</span>
+                                    </div>
+                                </div>
+                                <div class="option-group">
+                                    <label class="option-label">Opacity</label>
+                                    <input type="range" min="10" max="100" value="50" class="size-slider" id="highlightOpacity">
+                                    <span id="opacityValue">50%</span>
+                                </div>
+                            </div>
+                            
+                            <div id="drawOptions" class="tool-options" style="display: none;">
+                                <div class="option-group">
+                                    <label class="option-label">Pen Color</label>
+                                    <div class="color-picker">
+                                        <input type="color" class="color-input" id="penColor" value="#FF0000">
+                                        <span>Color</span>
+                                    </div>
+                                </div>
+                                <div class="option-group">
+                                    <label class="option-label">Pen Size</label>
+                                    <input type="range" min="1" max="10" value="3" class="size-slider" id="penSize">
+                                    <span id="penSizeValue">3px</span>
+                                </div>
+                            </div>
+                            
+                            <div id="shapeOptions" class="tool-options" style="display: none;">
+                                <div class="option-group">
+                                    <label class="option-label">Shape Type</label>
+                                    <select class="font-select" id="shapeType">
+                                        <option value="rectangle">Rectangle</option>
+                                        <option value="circle">Circle</option>
+                                        <option value="line">Line</option>
+                                        <option value="arrow">Arrow</option>
+                                    </select>
+                                </div>
+                                <div class="option-group">
+                                    <label class="option-label">Shape Color</label>
+                                    <div class="color-picker">
+                                        <input type="color" class="color-input" id="shapeColor" value="#0000FF">
+                                        <span>Color</span>
+                                    </div>
+                                </div>
+                                <div class="option-group">
+                                    <label class="option-label">Line Thickness</label>
+                                    <input type="range" min="1" max="10" value="2" class="size-slider" id="lineThickness">
+                                    <span id="lineThicknessValue">2px</span>
+                                </div>
+                            </div>
+                            
+                            <div id="signatureOptions" class="tool-options" style="display: none;">
+                                <div class="option-group">
+                                    <label class="option-label">Signature Type</label>
+                                    <select class="font-select" id="signatureType">
+                                        <option value="draw">Draw Signature</option>
+                                        <option value="upload">Upload Signature</option>
+                                        <option value="type">Type Signature</option>
+                                    </select>
+                                </div>
+                                <div id="drawSignature" class="signature-suboption">
+                                    <div class="option-group">
+                                        <label class="option-label">Draw your signature</label>
+                                        <div style="border: 1px solid var(--light-gray); border-radius: var(--border-radius); height: 100px; background: var(--white); margin-bottom: 1rem;"></div>
+                                        <button class="btn btn-small">Clear</button>
+                                        <button class="btn btn-small" style="margin-left: 0.5rem;">Save</button>
+                                    </div>
+                                </div>
+                                <div id="uploadSignature" class="signature-suboption" style="display: none;">
+                                    <div class="option-group">
+                                        <label class="option-label">Upload Signature Image</label>
+                                        <input type="file" id="signatureUpload" class="file-input" accept="image/*">
+                                        <button class="btn btn-small" style="margin-top: 0.5rem;">Browse Files</button>
+                                    </div>
+                                </div>
+                                <div id="typeSignature" class="signature-suboption" style="display: none;">
+                                    <div class="option-group">
+                                        <label class="option-label">Type your name</label>
+                                        <input type="text" class="text-input" id="typedSignature" placeholder="Your name">
+                                    </div>
+                                    <div class="option-group">
+                                        <label class="option-label">Signature Style</label>
+                                        <select class="font-select" id="signatureFont">
+                                            <option value="script">Script</option>
+                                            <option value="cursive">Cursive</option>
+                                            <option value="handwritten">Handwritten</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-full" id="saveBtn" style="display: none;">Save Edited PDF</button>
+                        
+                        <div id="result" style="display: none; margin-top: 2rem; text-align: center;">
+                            <h3>PDF Edited Successfully!</h3>
+                            <p>Your edited PDF is ready for download</p>
+                            <button class="btn" id="downloadBtn">Download Edited PDF</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-info">
+                        <h2>About This Tool</h2>
+                        <p>Our online PDF editor allows you to make changes to your PDF documents without needing expensive software. Add text, images, annotations, and more to customize your PDF files.</p>
+                        
+                        <h3>Key Features:</h3>
+                        <ul class="features-list">
+                            <li><span class="feature-icon">鉁�</span> Add and edit text</li>
+                            <li><span class="feature-icon">鉁�</span> Insert images and shapes</li>
+                            <li><span class="feature-icon">鉁�</span> Highlight important content</li>
+                            <li><span class="feature-icon">鉁�</span> Draw and annotate</li>
+                            <li><span class="feature-icon">鉁�</span> Add digital signatures</li>
+                            <li><span class="feature-icon">鉁�</span> No registration required</li>
+                        </ul>
+                        
+                        <h3>Perfect For:</h3>
+                        <ul class="features-list">
+                            <li><span class="feature-icon">馃搵</span> Filling out forms</li>
+                            <li><span class="feature-icon">馃搼</span> Adding comments to documents</li>
+                            <li><span class="feature-icon">馃摑</span> Signing contracts</li>
+                            <li><span class="feature-icon">馃帗</span> Annotating research papers</li>
+                        </ul>
+                        
+                        <div class="tip-box" style="background: var(--baby-pink); padding: 1rem; border-radius: var(--border-radius); margin-top: 1.5rem;">
+                            <h4>馃挕 Pro Tip</h4>
+                            <p>Use the text tool to fill out forms, the highlight tool to mark important sections, and the signature tool to sign documents electronically.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section class="faq">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <!-- FAQ 1 -->
+                    <div class="faq-item">
+                        <div class="faq-question" aria-expanded="false">
+                            <span>Can I edit text in existing PDF fields?</span>
+                            <span class="faq-toggle">鈻�</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, our PDF editor allows you to add text anywhere on the document. For pre-existing form fields, you can click on them to edit the text content directly.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 2 -->
+                    <div class="faq-item">
+                        <div class="faq-question" aria-expanded="false">
+                            <span>Will my edits affect the original PDF quality?</span>
+                            <span class="faq-toggle">鈻�</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No, the original PDF content remains unchanged. Your edits are added as separate layers, preserving the original document quality while allowing you to make modifications.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 3 -->
+                    <div class="faq-item">
+                        <div class="faq-question" aria-expanded="false">
+                            <span>Can I remove elements from a PDF?</span>
+                            <span class="faq-toggle">鈻�</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our editor focuses on adding content rather than removing existing elements. For removing pages or content, we recommend using our Remove PDF Pages tool.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 4 -->
+                    <div class="faq-item">
+                        <div class="faq-question" aria-expanded="false">
+                            <span>Are my edited PDFs secure?</span>
+                            <span class="faq-toggle">鈻�</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, all files are processed securely and automatically deleted from our servers within one hour. We don't store or access your documents after editing.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Related Tools Section -->
+        <section class="related-tools">
+            <div class="container">
+                <h2 class="section-title">Related Tools</h2>
+                <div class="tools-grid-small">
+                    <a href="/merge-pdf" class="tool-card">
+                        <span class="tool-card-icon">馃攢</span>
+                        <h3>Merge PDF</h3>
+                        <p>Combine multiple PDFs into one document</p>
+                    </a>
+                    
+                    <a href="/compress-pdf" class="tool-card">
+                        <span class="tool-card-icon">馃棞锔�</span>
+                        <h3>Compress PDF</h3>
+                        <p>Reduce PDF file size without quality loss</p>
+                    </a>
+                    
+                    <a href="/pdf-to-word" class="tool-card">
+                        <span class="tool-card-icon">馃摑</span>
+                        <h3>PDF to Word</h3>
+                        <p>Convert PDF files to editable Word documents</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>PDF Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="/image-to-pdf">Image to PDF</a></li>
+                        <li><a href="/word-to-pdf">Word to PDF</a></li>
+                        <li><a href="/powerpoint-to-pdf">PowerPoint to PDF</a></li>
+                        <li><a href="/pdf-to-word">PDF to Word</a></li>
+                        <li><a href="/compress-pdf">Compress PDF</a></li>
+                        <li><a href="/merge-pdf">Merge PDF</a></li>
+                        <li><a href="/remove-pdf-pages">Remove PDF Pages</a></li>
+                        <li><a href="/edit-pdf">Edit PDF</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Other Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="/qr-generator">QR Code Generator</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="/help">Help Center</a></li>
+                        <li><a href="/faq">FAQ</a></li>
+                        <li><a href="mailto:support@example.com">Email Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 ToolHub. All rights reserved.</p>
+                <p class="privacy-note">We use necessary cookies to ensure our site functions properly. Your files are processed securely and deleted automatically.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Edit PDF Tool",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "description": "Free online tool to edit PDF files - add text, images, annotations and more",
+        "url": "https://example.com/edit-pdf",
+        "browserRequirements": "Requires JavaScript",
+        "permissions": "File upload",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "ToolHub"
+        }
+    }
+    </script>
+    
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+            });
+            
+            // File upload functionality
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileName = document.getElementById('fileName');
+            const editTools = document.getElementById('editTools');
+            const editorPreview = document.getElementById('editorPreview');
+            const editOptions = document.getElementById('editOptions');
+            const saveBtn = document.getElementById('saveBtn');
+            const result = document.getElementById('result');
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            // Tool options
+            const toolOptions = document.querySelectorAll('.tool-option');
+            const textOptions = document.getElementById('textOptions');
+            const imageOptions = document.getElementById('imageOptions');
+            const highlightOptions = document.getElementById('highlightOptions');
+            const drawOptions = document.getElementById('drawOptions');
+            const shapeOptions = document.getElementById('shapeOptions');
+            const signatureOptions = document.getElementById('signatureOptions');
+            
+            // Page controls
+            const prevPage = document.getElementById('prevPage');
+            const nextPage = document.getElementById('nextPage');
+            const pageInfo = document.getElementById('pageInfo');
+            
+            // Signature type selector
+            const signatureType = document.getElementById('signatureType');
+            const drawSignature = document.getElementById('drawSignature');
+            const uploadSignature = document.getElementById('uploadSignature');
+            const typeSignature = document.getElementById('typeSignature');
+            
+            let selectedFile = null;
+            let currentPage = 1;
+            let totalPages = 1;
+            let currentTool = null;
+            
+            // Click on upload area triggers file input
+            uploadArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            // Drag and drop functionality
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = 'var(--baby-pink-darker)';
+                uploadArea.style.backgroundColor = 'var(--off-white)';
+            });
+            
+            uploadArea.addEventListener('dragleave', function() {
+                uploadArea.style.borderColor = 'var(--baby-pink)';
+                uploadArea.style.backgroundColor = 'transparent';
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = 'var(--baby-pink)';
+                uploadArea.style.backgroundColor = 'transparent';
+                
+                if (e.dataTransfer.files.length > 0) {
+                    handleFile(e.dataTransfer.files[0]);
+                }
+            });
+            
+            // File input change
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    handleFile(this.files[0]);
+                }
+            });
+            
+            // Handle selected file
+            function handleFile(file) {
+                // Check if file is a PDF
+                const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+                
+                if (fileExtension !== '.pdf') {
+                    alert('Please select a valid PDF file');
+                    return;
+                }
+                
+                selectedFile = file;
+                fileName.textContent = `${file.name} (${formatFileSize(file.size)})`;
+                fileInfo.style.display = 'block';
+                
+                // Show editing interface
+                editTools.style.display = 'block';
+                editorPreview.style.display = 'block';
+                saveBtn.style.display = 'block';
+                
+                // Simulate getting page count
+                totalPages = Math.min(Math.max(1, Math.floor(file.size / 5000)), 20);
+                updatePageInfo();
+            }
+            
+            // Tool selection
+            toolOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove active class from all tools
+                    toolOptions.forEach(tool => tool.classList.remove('active'));
+                    // Add active class to selected tool
+                    this.classList.add('active');
+                    
+                    // Hide all tool options
+                    textOptions.style.display = 'none';
+                    imageOptions.style.display = 'none';
+                    highlightOptions.style.display = 'none';
+                    drawOptions.style.display = 'none';
+                    shapeOptions.style.display = 'none';
+                    signatureOptions.style.display = 'none';
+                    
+                    // Show edit options container
+                    editOptions.style.display = 'block';
+                    
+                    // Show relevant tool options
+                    currentTool = this.dataset.tool;
+                    document.getElementById(currentTool + 'Options').style.display = 'block';
+                });
+            });
+            
+            // Page navigation
+            prevPage.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updatePageInfo();
+                }
+            });
+            
+            nextPage.addEventListener('click', function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    updatePageInfo();
+                }
+            });
+            
+            // Update page information
+            function updatePageInfo() {
+                pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+                prevPage.disabled = currentPage === 1;
+                nextPage.disabled = currentPage === totalPages;
+            }
+            
+            // Signature type change
+            signatureType.addEventListener('change', function() {
+                drawSignature.style.display = 'none';
+                uploadSignature.style.display = 'none';
+                typeSignature.style.display = 'none';
+                
+                document.getElementById(this.value + 'Signature').style.display = 'block';
+            });
+            
+            // Format file size
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            // Save button click
+            saveBtn.addEventListener('click', function() {
+                if (!currentTool) {
+                    alert('Please select an editing tool and make some changes');
+                    return;
+                }
+                
+                // Show loading state
+                saveBtn.textContent = 'Saving Changes...';
+                saveBtn.disabled = true;
+                
+                // Simulate saving process
+                setTimeout(function() {
+                    saveBtn.textContent = 'Save Edited PDF';
+                    saveBtn.disabled = false;
+                    result.style.display = 'block';
+                    
+                    // Scroll to result
+                    result.scrollIntoView({ behavior: 'smooth' });
+                }, 3000);
+            });
+            
+            // Download button click
+            downloadBtn.addEventListener('click', function() {
+                alert('In a real application, this would download your edited PDF');
+                // In a real implementation, this would trigger the actual download
+            });
+            
+            // FAQ accordion
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const toggle = this.querySelector('.faq-toggle');
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    
+                    // Close all other FAQ items
+                    faqQuestions.forEach(q => {
+                        if (q !== question) {
+                            q.setAttribute('aria-expanded', 'false');
+                            q.nextElementSibling.classList.remove('active');
+                            q.querySelector('.faq-toggle').classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current FAQ item
+                    this.setAttribute('aria-expanded', !isExpanded);
+                    answer.classList.toggle('active');
+                    toggle.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+    </html>
