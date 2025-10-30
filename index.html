@@ -1,544 +1,816 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Official portal for Indian ID card services - Download Aadhaar, PAN, Voter ID, Driving License & check Passport status online">
-    <meta name="keywords" content="download Aadhaar card, check passport status online, PAN card application, track voter ID, driving license services India">
-    <title>ID Portal India - Download & Track Government IDs Online</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Free online PDF tools: Convert, compress, merge PDFs, generate QR codes, remove backgrounds, and compress videos. Mobile-friendly, secure, and easy to use.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://example.com/">
+    
+    <!-- Open Graph / Twitter Card -->
+    <meta property="og:title" content="Free Online PDF Tools - Convert, Compress & Merge PDFs">
+    <meta property="og:description" content="Free online PDF tools: Convert, compress, merge PDFs, generate QR codes, remove backgrounds, and compress videos. Mobile-friendly and secure.">
+    <meta property="og:image" content="https://example.com/og-image.jpg">
+    <meta property="og:url" content="https://example.com/">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <title>Free Online PDF Tools - Convert, Compress & Merge PDFs | ToolHub</title>
+    
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #1a5276;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
-            --danger-color: #e74c3c;
-            --text-color: #333;
-            --bg-pattern: #e8f4f8;
-        }
-        
+        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --baby-pink: #FFD6E0;
+            --baby-pink-dark: #FFB6C1;
+            --baby-pink-darker: #FFC0CB;
+            --white: #ffffff;
+            --off-white: #f8f8f8;
+            --dark: #222222;
+            --gray: #666666;
+            --light-gray: #e0e0e0;
+            --border-radius: 12px;
+            --border-radius-xl: 20px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
         }
         
         body {
-            background-color: var(--bg-pattern);
-            color: var(--text-color);
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--white);
+            overflow-x: hidden;
         }
         
+        /* Typography */
+        h1, h2, h3, h4 {
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        /* Layout */
         .container {
-            width: 90%;
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 1.5rem;
         }
         
-        /* Header Styles */
+        section {
+            padding: 4rem 0;
+        }
+        
+        /* Header */
         header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: var(--white);
+            box-shadow: var(--shadow);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
         }
         
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 1rem 1.5rem;
         }
         
         .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-        
-        .logo span {
-            color: var(--secondary-color);
-        }
-        
-        nav ul {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
             display: flex;
-            list-style: none;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        nav ul li {
-            margin-left: 25px;
+        .logo-icon {
+            color: var(--baby-pink-darker);
         }
         
-        nav ul li a {
-            text-decoration: none;
-            color: var(--dark-color);
-            font-weight: 500;
-            transition: color 0.3s;
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
         }
         
-        nav ul li a:hover {
-            color: var(--secondary-color);
+        .nav-link {
+            font-weight: 600;
+            transition: var(--transition);
         }
         
-        .mobile-menu {
+        .nav-link:hover {
+            color: var(--baby-pink-darker);
+        }
+        
+        .mobile-menu-btn {
             display: none;
+            background: none;
+            border: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: var(--dark);
         }
         
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: white;
-            padding: 80px 0;
+            background: linear-gradient(135deg, var(--baby-pink) 0%, var(--off-white) 100%);
+            padding: 6rem 0;
             text-align: center;
         }
         
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            line-height: 1.3;
+            margin-bottom: 1.5rem;
         }
         
         .hero p {
             font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            color: var(--gray);
         }
         
-        .cta-button {
+        .btn {
             display: inline-block;
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: background-color 0.3s;
+            padding: 0.8rem 2rem;
+            background-color: var(--baby-pink-darker);
+            color: var(--dark);
+            border-radius: var(--border-radius-xl);
+            font-weight: 700;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
         }
         
-        .cta-button:hover {
-            background-color: #2980b9;
+        .btn:hover {
+            background-color: var(--baby-pink-dark);
+            transform: translateY(-2px);
         }
         
-        /* Quick Access Cards */
-        .services {
-            padding: 80px 0;
+        /* Tools Section */
+        .tools {
+            background-color: var(--off-white);
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
-            font-size: 2rem;
-            color: var(--primary-color);
+            margin-bottom: 3rem;
         }
         
-        .cards-container {
+        .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
         }
         
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .card-icon {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-        
-        .card h3 {
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
-        
-        .card p {
-            margin-bottom: 20px;
-            color: #666;
-        }
-        
-        .card-button {
-            display: inline-block;
-            background-color: var(--light-color);
-            color: var(--primary-color);
-            padding: 8px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.3s;
-        }
-        
-        .card-button:hover {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-        
-        /* About Section */
-        .about {
-            background-color: white;
-            padding: 60px 0;
+        .tool-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
             text-align: center;
         }
         
-        .about p {
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tool-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        
+        .tool-card h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .tool-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            background-color: var(--white);
+        }
+        
+        .benefits-list {
             max-width: 800px;
             margin: 0 auto;
-            font-size: 1.1rem;
-            line-height: 1.8;
         }
         
-        /* SEO Content */
-        .seo-content {
-            padding: 80px 0;
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            background-color: var(--off-white);
         }
         
-        .seo-content h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: var(--primary-color);
+        .benefit-icon {
+            color: var(--baby-pink-darker);
+            font-size: 1.5rem;
+            flex-shrink: 0;
         }
         
-        .seo-content p {
-            margin-bottom: 20px;
-            text-align: justify;
+        /* FAQ Section */
+        .faq {
+            background-color: var(--off-white);
         }
         
-        /* AdSense Banner */
-        .adsense-banner {
-            background-color: #f8f9fa;
-            padding: 20px;
-            text-align: center;
-            margin: 40px 0;
-            border: 1px dashed #ccc;
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
         }
         
-        .adsense-banner p {
-            color: #666;
-            margin-bottom: 10px;
+        .faq-item {
+            margin-bottom: 1rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .faq-question:hover {
+            background-color: var(--baby-pink);
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer.active {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+        
+        .faq-toggle {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-toggle.active {
+            transform: rotate(180deg);
         }
         
         /* Footer */
         footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 50px 0 20px;
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 4rem 0 2rem;
         }
         
-        .footer-container {
+        .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
         
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-        
-        .footer-links h3 {
-            margin-bottom: 20px;
+        .footer-column h3 {
             font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
         }
         
-        .footer-links ul {
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 2rem;
+            height: 2px;
+            background-color: var(--baby-pink);
+        }
+        
+        .footer-links {
             list-style: none;
         }
         
-        .footer-links ul li {
-            margin-bottom: 10px;
+        .footer-links li {
+            margin-bottom: 0.8rem;
         }
         
-        .footer-links ul li a {
-            color: #ddd;
-            text-decoration: none;
-            transition: color 0.3s;
+        .footer-links a {
+            transition: var(--transition);
+            color: var(--light-gray);
         }
         
-        .footer-links ul li a:hover {
-            color: var(--secondary-color);
+        .footer-links a:hover {
+            color: var(--baby-pink);
+            padding-left: 0.3rem;
         }
         
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-        
-        .social-icons a:hover {
-            background-color: var(--secondary-color);
-        }
-        
-        .disclaimer {
+        .footer-bottom {
             text-align: center;
-            padding-top: 20px;
+            padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--light-gray);
             font-size: 0.9rem;
-            color: #ccc;
         }
         
-        /* Responsive Design */
+        .privacy-note {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--baby-pink-darker);
+            color: var(--dark);
+            padding: 8px;
+            z-index: 1000;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Responsive styles */
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 5px 10px;
-            }
-            
-            .hero h1 {
+            h1 {
                 font-size: 2rem;
             }
             
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .section-title {
+            h2 {
                 font-size: 1.7rem;
             }
-        }
-        
-        @media (max-width: 480px) {
-            .mobile-menu {
-                display: block;
-            }
             
-            nav ul {
+            .nav-menu {
                 display: none;
-                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
                 width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                padding: 1.5rem;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                gap: 1rem;
             }
             
-            nav ul.show {
+            .nav-menu.active {
                 display: flex;
             }
             
-            nav ul li {
-                margin: 10px 0;
+            .mobile-menu-btn {
+                display: block;
             }
             
             .hero {
-                padding: 60px 0;
+                padding: 4rem 0;
             }
             
-            .hero h1 {
-                font-size: 1.7rem;
+            section {
+                padding: 3rem 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
+    <!-- Skip link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header -->
     <header>
         <div class="container header-container">
-            <div class="logo">ID Portal <span>India</span></div>
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
+            <a href="/" class="logo">
+                <span class="logo-icon">🛠️</span>
+                <span>ToolHub</span>
+            </a>
+            
             <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="aadhaar-download.html">Aadhaar</a></li>
-                    <li><a href="voterid-download.html">Voter ID</a></li>
-                    <li><a href="epan-download.html">PAN Card</a></li>
-                    <li><a href="passport-status.html">Passport Status</a></li>
-                    <li><a href="driving-license.html">Driving License</a></li>
-                    <li><a href="contact-us.html">Contact</a></li>
+                <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">☰</button>
+                <ul class="nav-menu">
+                    <li><a href="#tools" class="nav-link">Tools</a></li>
+                    <li><a href="#benefits" class="nav-link">Why Choose Us</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="#" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>Download & Track Your Government IDs Easily</h1>
-            <p>One-stop access to Aadhaar, Voter ID, PAN, Passport status, and Driving License services</p>
-        </div>
-    </section>
-
-    <!-- Quick Access Cards Section -->
-    <section class="services">
-        <div class="container">
-            <h2 class="section-title">Quick Access Services</h2>
-            <div class="cards-container">
-                <div class="card">
-                    <div class="card-icon">
-                        <i class="fas fa-id-card"></i>
-                    </div>
-                    <h3>Aadhaar Card</h3>
-                    <p>Download e-Aadhaar, update details, check status, and more Aadhaar services</p>
-                    <a href="aadhaar-download.html" class="card-button">Access Now</a>
-                </div>
-                <div class="card">
-                    <div class="card-icon">
-                        <i class="fas fa-vote-yea"></i>
-                    </div>
-                    <h3>Voter ID</h3>
-                    <p>Apply for new Voter ID, track application status, and download e-EPIC</p>
-                    <a href="voterid-download.html" class="card-button">Access Now</a>
-                </div>
-                <div class="card">
-                    <div class="card-icon">
-                        <i class="fas fa-address-card"></i>
-                    </div>
-                    <h3>PAN Card</h3>
-                    <p>Apply for new PAN, make corrections, track status, and download e-PAN</p>
-                    <a href="epan-download.html" class="card-button">Access Now</a>
-                </div>
-                <div class="card">
-                    <div class="card-icon">
-                        <i class="fas fa-passport"></i>
-                    </div>
-                    <h3>Passport Status</h3>
-                    <p>Check passport application status, track delivery, and find passport offices</p>
-                    <a href="passport-status.html" class="card-button">Access Now</a>
-                </div>
-                <div class="card">
-                    <div class="card-icon">
-                        <i class="fas fa-id-card-alt"></i>
-                    </div>
-                    <h3>Driving License</h3>
-                    <p>Apply for DL, check status, download digital license, and schedule tests</p>
-                    <a href="driving-license.html" class="card-button">Access Now</a>
+    
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-content">
+                <h1>Free Online PDF Tools – Convert, Compress & Merge PDFs</h1>
+                <p>Easily convert, compress, merge PDF files, remove backgrounds, compress videos, and generate QR codes with our free, mobile-friendly online tools. No installation required.</p>
+                <button class="btn" id="explore-tools">Explore All Tools</button>
+            </div>
+        </section>
+        
+        <!-- Tools Section -->
+        <section class="tools" id="tools">
+            <div class="container">
+                <h2 class="section-title">Our Free Online Tools</h2>
+                <div class="tools-grid">
+                    <!-- Tool 1 -->
+                    <article class="tool-card">
+                        <span class="tool-icon" aria-hidden="true">🖼️</span>
+                        <h3>Image to PDF</h3>
+                        <p>Convert JPG, PNG, and other image formats to PDF files quickly and easily.</p>
+                        <a href="image-to-pdf.html" class="btn">Open Tool</a>
+                    </article>
+                    
+                    <!-- Tool 2 -->
+                    <article class="tool-card">
+                        <span class="tool-icon" aria-hidden="true">📄</span>
+                        <h3>Word to PDF</h3>
+                        <p>Convert Word documents to PDF format while preserving formatting and layout.</p>
+                        <a href="word-to-pdf.html" class="btn">Open Tool</a>
+                    </article>
+                    
+                    <!-- Tool 3 -->
+                    <article class="tool-card">
+                        <span class="tool-icon" aria-hidden="true">📝</span>
+                        <h3>PDF to Word</h3>
+                        <p>Convert PDF files to editable Word documents with high accuracy.</p>
+                        <a href="pdf-to-word.html" class="btn">Open Tool</a>
+                    </article>
+                    
+                    <!-- Tool 4 -->
+                    <article class="tool-card">
+                        <span class="tool-icon" aria-hidden="true">📦</span>
+                        <h3>Compress PDF</h3>
+                        <p>Reduce PDF file size without significant quality loss for easier sharing.</p>
+                        <a href="compress-pdf.html" class="btn">Open Tool</a>
+                    </article>
+                    
+                    <!-- Tool 5 -->
+                    <article class="tool-card">
+                        <span class="tool-icon" aria-hidden="true">🔗</span>
+                        <h3>Merge PDF</h3>
+                        <p>Combine multiple PDF files into a single document in your preferred order.</p>
+                        <a href="merge-pdf.html" class="btn">Open Tool</a>
+                    </article>
+                    
+                    <!-- Tool 6 -->
+                    <article class="tool-card">
+                        <span class="tool-icon" aria-hidden="true">✂️</span>
+                        <h3>Remove PDF Pages</h3>
+                        <p>Delete unwanted pages from your PDF documents with our easy tool.</p>
+                        <a href="remove-pdf.html" class="btn">Open Tool</a>
+                    </article>
+                    
+                    <!-- Tool 7 -->
+                    <article class="tool-card">
+                        <span class="tool-icon" aria-hidden="true">✏️</span>
+                        <h3>Edit PDF</h3>
+                        <p>Add text, images, annotations and modify your PDF documents with our easy editor.</p>
+                        <a href="edit-pdf.html" class="btn">Open Tool</a>
+                    </article>
+                    
+                    <!-- Tool 8 -->
+                    <article class="tool-card">
+                        <span class="tool-icon" aria-hidden="true">📊</span>
+                        <h3>PowerPoint to PDF</h3>
+                        <p>Convert PowerPoint presentations to PDF format while preserving slides and formatting.</p>
+                        <a href="powerpoint-to-pdf.html" class="btn">Open Tool</a>
+                    </article>
+                    
+                    <!-- Tool 9 -->
+                    <article class="tool-card">
+                        <span class="tool-icon" aria-hidden="true">📱</span>
+                        <h3>QR Code Generator</h3>
+                        <p>Create custom QR codes for URLs, text, contact info, and more.</p>
+                        <a href="qrcode-generator.html" class="btn">Open Tool</a>
+                    </article>
+                    
+                    <!-- NEW TOOL 10: Background Remover -->
+                    <article class="tool-card">
+                        <span class="tool-icon" aria-hidden="true">🎨</span>
+                        <h3>Background Remover</h3>
+                        <p>Remove backgrounds from images automatically with AI-powered technology.</p>
+                        <a href="background-remover.html" class="btn">Open Tool</a>
+                    </article>
+                    
+                    <!-- NEW TOOL 11: Video Compressor -->
+                    <article class="tool-card">
+                        <span class="tool-icon" aria-hidden="true">🎬</span>
+                        <h3>Video Compressor</h3>
+                        <p>Compress video files to reduce size while maintaining quality for easy sharing.</p>
+                        <a href="video-compressor.html" class="btn">Open Tool</a>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Google AdSense Banner -->
-    <div class="container">
-        <div class="adsense-banner">
-            <p>Advertisement</p>
-            <div style="background-color: #f0f0f0; height: 90px; display: flex; align-items: center; justify-content: center;">
-                Google AdSense Banner (728x90)
+        </section>
+        
+        <!-- Benefits Section -->
+        <section class="benefits" id="benefits">
+            <div class="container">
+                <h2 class="section-title">Why Choose Our PDF Tools</h2>
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <span class="benefit-icon" aria-hidden="true">✅</span>
+                        <div>
+                            <h3>100% Free</h3>
+                            <p>All our online PDF tools are completely free to use with no hidden costs or watermarks.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <span class="benefit-icon" aria-hidden="true">✅</span>
+                        <div>
+                            <h3>Secure & Private</h3>
+                            <p>Your files are processed securely and never stored on our servers after processing.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <span class="benefit-icon" aria-hidden="true">✅</span>
+                        <div>
+                            <h3>No Registration Required</h3>
+                            <p>Use our tools instantly without creating an account or providing personal information.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <span class="benefit-icon" aria-hidden="true">✅</span>
+                        <div>
+                            <h3>Mobile-Friendly</h3>
+                            <p>All our PDF tools work perfectly on desktop, tablet, and mobile devices.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <!-- About Section -->
-    <section class="about">
-        <div class="container">
-            <h2 class="section-title">About Our Portal</h2>
-            <p>This website provides easy access to official government portals for Indian citizens to download, update, or track their identity documents. We do not store any user data. All services are directly linked to official government websites.</p>
-        </div>
-    </section>
-
-    <!-- SEO Content Section -->
-    <section class="seo-content">
-        <div class="container">
-            <h2>Indian ID Card Downloads & Status Check</h2>
-            <p>Welcome to India's premier portal for all your identity document needs. Our platform offers streamlined access to essential services for Indian citizens, including the ability to <strong>download Aadhaar card</strong> copies, apply for new PAN cards, track voter ID applications, check passport status online, and access driving license services across India.</p>
-            
-            <p>For Aadhaar services, users can easily download their e-Aadhaar, update personal details, check enrollment status, and locate nearby Aadhaar centers. Our PAN card application section guides you through the entire process - from new applications to corrections and tracking. When it comes to voter ID services, citizens can apply for new voter cards, track application status, and download digital voter ID cards (e-EPIC).</p>
-            
-            <p>Our passport status checker provides real-time updates on your application progress, while the driving license section helps with new applications, test scheduling, status tracking, and digital license downloads. All these services are securely connected to their respective official government portals, ensuring your data remains protected and processes are authentic.</p>
-            
-            <p>Whether you need to check passport status online, complete your PAN card application, track voter ID delivery, or access any driving license services in India, our user-friendly platform makes these essential civic services accessible to everyone. We continuously update our links and processes to align with the latest government guidelines, providing you with the most current and reliable service experience.</p>
-        </div>
-    </section>
-
-    <!-- Google AdSense Banner -->
-    <div class="container">
-        <div class="adsense-banner">
-            <p>Advertisement</p>
-            <div style="<script async="async" data-cfasync="false" src="//pl27823508.effectivegatecpm.com/306a310dd9d85c33ff9bc89b327b2e3a/invoke.js"></script>
-<div id="container-306a310dd9d85c33ff9bc89b327b2e3a"></div>">
-                Google AdSense Banner (300x250)
+        </section>
+        
+        <!-- FAQ Section -->
+        <section class="faq" id="faq">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <!-- FAQ 1 -->
+                    <div class="faq-item">
+                        <div class="faq-question" aria-expanded="false">
+                            <span>Are these PDF tools really free to use?</span>
+                            <span class="faq-toggle">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, all our online PDF tools are completely free to use. There are no hidden fees, watermarks, or limitations on usage.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 2 -->
+                    <div class="faq-item">
+                        <div class="faq-question" aria-expanded="false">
+                            <span>Is my data safe when using your tools?</span>
+                            <span class="faq-toggle">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Absolutely. We take privacy seriously. Your files are processed securely and automatically deleted from our servers after processing, typically within one hour.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 3 -->
+                    <div class="faq-item">
+                        <div class="faq-question" aria-expanded="false">
+                            <span>Do I need to install any software?</span>
+                            <span class="faq-toggle">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No installation is required. All our PDF tools work directly in your web browser on any device with an internet connection.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Footer Section -->
+        </section>
+    </main>
+    
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-container">
-                <div class="footer-about">
-                    <div class="footer-logo">ID Portal India</div>
-                    <p>Your trusted gateway to government ID services in India.</p>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="aadhaar-download.html">Aadhaar Services</a></li>
-                        <li><a href="voterid-sownload.html">Voter ID Services</a></li>
-                        <li><a href="pancard-downlaod.html">PAN Card Services</a></li>
-                        <li><a href="passport-status.html">Passport Status</a></li>
-                        <li><a href="driving-license.html">Driving License</a></li>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="image-to-pdf.html">Image to PDF</a></li>
+                        <li><a href="word-to-pdf.html">Word to PDF</a></li>
+                        <li><a href="pdf-to-word.html">PDF to Word</a></li>
+                        <li><a href="compress-pdf.html">Compress PDF</a></li>
+                        <li><a href="merge-pdf.html">Merge PDF</a></li>
+                        <li><a href="remove-pdf.html">Remove PDF Pages</a></li>
+                        <li><a href="edit-pdf.html">Edit PDF</a></li>
+                        <li><a href="powerpoint-to-pdf.html">PowerPoint to PDF</a></li>
+                        <li><a href="qrcode-generator.html">QR Code Generator</a></li>
+                        <li><a href="background-remover.html">Background Remover</a></li>
+                        <li><a href="video-compressor.html">Video Compressor</a></li>
                     </ul>
                 </div>
-                <div class="footer-links">
-                    <h3>Legal</h3>
-                    <ul>
-                        <li><a href="blogs.html">Blogs</a></li>
+                
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
                         <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
-                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="/help">Help Center</a></li>
+                        <li><a href="/faq">FAQ</a></li>
+                        <li><a href="mailto:support@example.com">Email Support</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="disclaimer">
-                <p>This website is not affiliated with any government body. All links redirect to official portals.</p>
-                <p>&copy; 2023 ID Portal India. All rights reserved.</p>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 ToolHub. All rights reserved.</p>
+                <p class="privacy-note">We use necessary cookies to ensure our site functions properly. Your files are processed securely and deleted automatically.</p>
             </div>
         </div>
     </footer>
-
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": "https://example.com/#organization",
+                "name": "ToolHub",
+                "url": "https://example.com/",
+                "description": "Free online PDF tools for converting, compressing, and merging PDF files",
+                "logo": "https://example.com/logo.png"
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://example.com/#website",
+                "url": "https://example.com/",
+                "name": "ToolHub - Free Online PDF Tools",
+                "description": "Free online PDF tools for converting, compressing, and merging PDF files",
+                "publisher": {
+                    "@id": "https://example.com/#organization"
+                }
+            },
+            {
+                "@type": "WebPage",
+                "@id": "https://example.com/#webpage",
+                "url": "https://example.com/",
+                "name": "Free Online PDF Tools - Convert, Compress & Merge PDFs | ToolHub",
+                "description": "Free online PDF tools: Convert, compress, merge PDFs, generate QR codes, remove backgrounds, and compress videos. Mobile-friendly, secure, and easy to use.",
+                "isPartOf": {
+                    "@id": "https://example.com/#website"
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <!-- JavaScript -->
     <script>
         // Mobile menu toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('show');
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+            });
+            
+            // FAQ accordion
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const toggle = this.querySelector('.faq-toggle');
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    
+                    // Close all other FAQ items
+                    faqQuestions.forEach(q => {
+                        if (q !== question) {
+                            q.setAttribute('aria-expanded', 'false');
+                            q.nextElementSibling.classList.remove('active');
+                            q.querySelector('.faq-toggle').classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current FAQ item
+                    this.setAttribute('aria-expanded', !isExpanded);
+                    answer.classList.toggle('active');
+                    toggle.classList.toggle('active');
+                });
+            });
+            
+            // Smooth scroll for CTA button
+            const exploreToolsBtn = document.getElementById('explore-tools');
+            
+            exploreToolsBtn.addEventListener('click', function() {
+                document.getElementById('tools').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (navMenu.classList.contains('active')) {
+                            navMenu.classList.remove('active');
+                            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+            });
         });
+        
+        // Analytics placeholder (comment out in production)
+        /*
+        // Google Analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview');
+        
+        // Google Tag Manager
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-XXXXXXX');
+        */
     </script>
-    <script async="async" data-cfasync="false" src="//pl27823508.effectivegatecpm.com/306a310dd9d85c33ff9bc89b327b2e3a/invoke.js"></script>
-<div id="container-306a310dd9d85c33ff9bc89b327b2e3a"></div>
 </body>
-  </html>
+                                                                                                    </html>
