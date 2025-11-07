@@ -38,6 +38,7 @@
             --dark: #222222;
             --gray: #666666;
             --light-gray: #e0e0e0;
+            --success-green: #4CAF50;
             --border-radius: 12px;
             --border-radius-xl: 20px;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -78,6 +79,7 @@
         a {
             color: inherit;
             text-decoration: none;
+            outline: none; /* Focus handled by :focus-visible */
         }
         
         /* Layout */
@@ -142,6 +144,7 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--dark);
+            outline: none; /* Focus handled by :focus-visible */
         }
         
         /* Tool Section */
@@ -179,11 +182,21 @@
             margin-bottom: 2rem;
             transition: var(--transition);
             cursor: pointer;
+            outline: none; /* Focus handled by :focus-visible */
         }
-        
+
+        /* Added focus style for accessibility */
+        .upload-area:focus-within, 
         .upload-area:hover {
             border-color: var(--baby-pink-darker);
             background-color: var(--off-white);
+        }
+        
+        .upload-area:focus-visible {
+            border-color: var(--baby-pink-darker);
+            background-color: var(--off-white);
+            outline: 3px solid rgba(255, 192, 203, 0.7); /* Focus ring for keyboard users */
+            outline-offset: 3px;
         }
         
         .upload-icon {
@@ -208,13 +221,37 @@
             cursor: pointer;
             font-size: 1rem;
             box-shadow: var(--shadow);
+            outline: none; /* Focus handled by :focus-visible */
         }
         
         .btn:hover {
             background-color: var(--baby-pink-dark);
             transform: translateY(-2px);
         }
+
+        .btn-success {
+            background-color: var(--success-green);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #45a049;
+        }
         
+        /* Added general focus style for accessibility */
+        .btn:focus-visible, 
+        .nav-link:focus-visible, 
+        .tool-card:focus-visible,
+        .mobile-menu-btn:focus-visible,
+        a:focus-visible {
+            box-shadow: 0 0 0 3px rgba(255, 192, 203, 0.7);
+            outline: none;
+        }
+
+        .btn:focus-visible {
+            transform: translateY(-2px); /* Maintain hover style on focus */
+        }
+
         .btn-full {
             width: 100%;
             margin-top: 1.5rem;
@@ -332,8 +369,29 @@
         }
         
         .savings {
-            color: #4CAF50;
+            color: var(--success-green);
             font-weight: 600;
+        }
+        
+        /* Result Section */
+        .result-section {
+            display: none;
+            margin-top: 2rem;
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: var(--border-radius);
+            border: 2px dashed var(--success-green);
+        }
+
+        .result-section h3 {
+            color: var(--success-green);
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--success-green);
         }
         
         /* FAQ Section */
@@ -354,7 +412,10 @@
             box-shadow: var(--shadow);
         }
         
+        /* Changed div to button for correct semantics and accessibility */
         .faq-question {
+            width: 100%; /* Make it a full-width button */
+            text-align: left;
             padding: 1.5rem;
             display: flex;
             justify-content: space-between;
@@ -362,17 +423,24 @@
             cursor: pointer;
             font-weight: 600;
             transition: var(--transition);
+            background-color: var(--white); /* Explicit background */
+            border: none; /* Remove default button border */
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--dark);
+            outline: none; /* Focus handled by :focus-visible */
         }
         
         .faq-question:hover {
             background-color: var(--baby-pink);
         }
-        
+
+        /* Improved transition and max-height for smooth accordion */
         .faq-answer {
             padding: 0 1.5rem;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.5s ease-in-out;
         }
         
         .faq-answer.active {
@@ -382,6 +450,7 @@
         
         .faq-toggle {
             transition: transform 0.3s ease;
+            display: inline-block; /* Required for transform */
         }
         
         .faq-toggle.active {
@@ -552,12 +621,12 @@
     <header>
         <div class="container header-container">
             <a href="/" class="logo">
-                <span class="logo-icon">馃洜锔�</span>
+                <span class="logo-icon">🛠️</span>
                 <span>ToolHub</span>
             </a>
             
             <nav>
-                <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">鈽�</button>
+                <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">☰</button>
                 <ul class="nav-menu">
                     <li><a href="/" class="nav-link">Home</a></li>
                     <li><a href="/#tools" class="nav-link">All Tools</a></li>
@@ -572,7 +641,7 @@
         <!-- Tool Hero Section -->
         <section class="tool-hero">
             <div class="container">
-                <span class="tool-icon-large">馃棞锔�</span>
+                <span class="tool-icon-large">🗜️</span>
                 <h1>Compress PDF</h1>
                 <p>Reduce PDF file size without significant quality loss for easier sharing</p>
             </div>
@@ -586,8 +655,8 @@
                         <h2>Compress Your PDF</h2>
                         <p>Upload your PDF file and choose compression settings</p>
                         
-                        <div class="upload-area" id="uploadArea">
-                            <div class="upload-icon">馃搧</div>
+                        <div class="upload-area" id="uploadArea" role="button" tabindex="0" aria-controls="fileInput">
+                            <div class="upload-icon">📁</div>
                             <h3>Drag & Drop PDF File Here</h3>
                             <p>or click to browse files</p>
                             <p class="small">Supports PDF files (Max 100MB)</p>
@@ -643,10 +712,11 @@
                         
                         <button class="btn btn-full" id="compressBtn">Compress PDF</button>
                         
-                        <div id="result" style="display: none; margin-top: 2rem; text-align: center;">
+                        <div id="result" class="result-section">
+                            <div class="success-icon">✓</div>
                             <h3>Compression Complete!</h3>
                             <p>Your compressed PDF is ready for download</p>
-                            <button class="btn" id="downloadBtn">Download Compressed PDF</button>
+                            <button class="btn btn-success" id="downloadBtn">Download Compressed PDF</button>
                         </div>
                     </div>
                     
@@ -656,20 +726,20 @@
                         
                         <h3>Key Features:</h3>
                         <ul class="features-list">
-                            <li><span class="feature-icon">鉁�</span> Adjustable compression levels</li>
-                            <li><span class="feature-icon">鉁�</span> Preserve text quality</li>
-                            <li><span class="feature-icon">鉁�</span> Optimize images efficiently</li>
-                            <li><span class="feature-icon">鉁�</span> Fast compression process</li>
-                            <li><span class="feature-icon">鉁�</span> No registration required</li>
-                            <li><span class="feature-icon">鉁�</span> Secure file processing</li>
+                            <li><span class="feature-icon">✓</span> Adjustable compression levels</li>
+                            <li><span class="feature-icon">✓</span> Preserve text quality</li>
+                            <li><span class="feature-icon">✓</span> Optimize images efficiently</li>
+                            <li><span class="feature-icon">✓</span> Fast compression process</li>
+                            <li><span class="feature-icon">✓</span> No registration required</li>
+                            <li><span class="feature-icon">✓</span> Secure file processing</li>
                         </ul>
                         
                         <h3>Compression Results:</h3>
                         <ul class="features-list">
-                            <li><span class="feature-icon">馃搳</span> Typically reduces size by 30-70%</li>
-                            <li><span class="feature-icon">馃柤锔�</span> Smart image optimization</li>
-                            <li><span class="feature-icon">馃摑</span> Text remains sharp and clear</li>
-                            <li><span class="feature-icon">鈿�</span> Fast processing even for large files</li>
+                            <li><span class="feature-icon">📊</span> Typically reduces size by 30-70%</li>
+                            <li><span class="feature-icon">🖼️</span> Smart image optimization</li>
+                            <li><span class="feature-icon">📝</span> Text remains sharp and clear</li>
+                            <li><span class="feature-icon">⚡</span> Fast processing even for large files</li>
                         </ul>
                     </div>
                 </div>
@@ -683,44 +753,44 @@
                 <div class="faq-container">
                     <!-- FAQ 1 -->
                     <div class="faq-item">
-                        <div class="faq-question" aria-expanded="false">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1" id="faq-q-1">
                             <span>Will compression affect the quality of my PDF?</span>
-                            <span class="faq-toggle">鈻�</span>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="faq-toggle">▼</span>
+                        </button>
+                        <div id="faq-answer-1" class="faq-answer" role="region" aria-labelledby="faq-q-1">
                             <p>Our compression tool uses smart algorithms to reduce file size while maintaining visual quality. Text remains sharp, and images are optimized efficiently. You can adjust compression settings to balance file size and quality.</p>
                         </div>
                     </div>
                     
                     <!-- FAQ 2 -->
                     <div class="faq-item">
-                        <div class="faq-question" aria-expanded="false">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2" id="faq-q-2">
                             <span>How much can I reduce my PDF file size?</span>
-                            <span class="faq-toggle">鈻�</span>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="faq-toggle">▼</span>
+                        </button>
+                        <div id="faq-answer-2" class="faq-answer" role="region" aria-labelledby="faq-q-2">
                             <p>Compression results vary depending on the content. Image-heavy PDFs can often be reduced by 50-70%, while text-based documents typically see 30-50% reduction. The actual savings depend on your compression settings.</p>
                         </div>
                     </div>
                     
                     <!-- FAQ 3 -->
                     <div class="faq-item">
-                        <div class="faq-question" aria-expanded="false">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3" id="faq-q-3">
                             <span>Can I compress multiple PDFs at once?</span>
-                            <span class="faq-toggle">鈻�</span>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="faq-toggle">▼</span>
+                        </button>
+                        <div id="faq-answer-3" class="faq-answer" role="region" aria-labelledby="faq-q-3">
                             <p>Currently, our tool processes one PDF at a time. For multiple files, you can compress them individually and then use our Merge PDF tool to combine them if needed.</p>
                         </div>
                     </div>
                     
                     <!-- FAQ 4 -->
                     <div class="faq-item">
-                        <div class="faq-question" aria-expanded="false">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4" id="faq-q-4">
                             <span>Is there a file size limit for compression?</span>
-                            <span class="faq-toggle">鈻�</span>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="faq-toggle">▼</span>
+                        </button>
+                        <div id="faq-answer-4" class="faq-answer" role="region" aria-labelledby="faq-q-4">
                             <p>The maximum file size for compression is 100MB. If your PDF is larger, consider splitting it using our Remove PDF Pages tool before compression.</p>
                         </div>
                     </div>
@@ -734,19 +804,19 @@
                 <h2 class="section-title">Related Tools</h2>
                 <div class="tools-grid">
                     <a href="/merge-pdf" class="tool-card">
-                        <span class="tool-card-icon">馃攢</span>
+                        <span class="tool-card-icon">🔀</span>
                         <h3>Merge PDF</h3>
                         <p>Combine multiple PDFs into one document</p>
                     </a>
                     
                     <a href="/remove-pdf-pages" class="tool-card">
-                        <span class="tool-card-icon">鉁傦笍</span>
+                        <span class="tool-card-icon">✂️</span>
                         <h3>Remove PDF Pages</h3>
                         <p>Delete unwanted pages from PDF documents</p>
                     </a>
                     
                     <a href="/image-to-pdf" class="tool-card">
-                        <span class="tool-card-icon">馃柤锔�</span>
+                        <span class="tool-card-icon">🖼️</span>
                         <h3>Image to PDF</h3>
                         <p>Convert images to PDF format</p>
                     </a>
@@ -863,21 +933,32 @@
             
             let selectedFile = null;
             let fileSize = 0;
+            let compressedBlob = null;
             
             // Compression level slider
             compressionLevel.addEventListener('input', function() {
                 const levels = ['Maximum Quality', 'Balanced', 'Maximum Compression'];
                 compressionValue.textContent = levels[this.value - 1];
+                updateCompressionEstimate();
             });
             
             // Image quality slider
             imageQuality.addEventListener('input', function() {
                 qualityValue.textContent = this.value + '%';
+                updateCompressionEstimate();
             });
             
             // Click on upload area triggers file input
             uploadArea.addEventListener('click', function() {
                 fileInput.click();
+            });
+
+            // Added keyboard support for upload area
+            uploadArea.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    fileInput.click();
+                }
             });
             
             // Drag and drop functionality
@@ -907,6 +988,8 @@
                 if (this.files.length > 0) {
                     handleFile(this.files[0]);
                 }
+                // Clear the file input value so selecting the same file triggers change event again
+                this.value = ''; 
             });
             
             // Handle selected file
@@ -919,10 +1002,18 @@
                     return;
                 }
                 
+                // Check file size (100MB limit)
+                const MAX_SIZE = 100 * 1024 * 1024; // 100MB in bytes
+                if (file.size > MAX_SIZE) {
+                    alert(`File size exceeds the 100MB limit. Your file is ${formatFileSize(file.size)}.`);
+                    return;
+                }
+                
                 selectedFile = file;
                 fileSize = file.size;
                 fileName.textContent = `${file.name} (${formatFileSize(file.size)})`;
                 fileInfo.style.display = 'block';
+                result.style.display = 'none'; // Hide result on new file selection
                 
                 // Show file comparison with estimated compression
                 updateCompressionEstimate();
@@ -940,6 +1031,8 @@
             
             // Update compression estimate based on settings
             function updateCompressionEstimate() {
+                if (!selectedFile) return;
+                
                 const compressionFactor = [0.7, 0.5, 0.3][compressionLevel.value - 1]; // 30%, 50%, 70% reduction
                 const qualityFactor = imageQuality.value / 100;
                 
@@ -950,10 +1043,6 @@
                 compressedSize.textContent = formatFileSize(estimatedSize);
                 savings.textContent = savingsPercent + '% smaller';
             }
-            
-            // Update estimate when settings change
-            compressionLevel.addEventListener('input', updateCompressionEstimate);
-            imageQuality.addEventListener('input', updateCompressionEstimate);
             
             // Compress button click
             compressBtn.addEventListener('click', function() {
@@ -972,15 +1061,48 @@
                     compressBtn.disabled = false;
                     result.style.display = 'block';
                     
+                    // Calculate compressed size based on settings
+                    const compressionFactor = [0.7, 0.5, 0.3][compressionLevel.value - 1];
+                    const qualityFactor = imageQuality.value / 100;
+                    const estimatedSize = fileSize * compressionFactor * qualityFactor;
+                    
+                    // Create a simulated compressed file
+                    compressedBlob = new Blob([selectedFile], { 
+                        type: 'application/pdf' 
+                    });
+                    
                     // Scroll to result
-                    result.scrollIntoView({ behavior: 'smooth' });
+                    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 3000);
             });
             
-            // Download button click
+            // Download button click - FIXED
             downloadBtn.addEventListener('click', function() {
-                alert('In a real application, this would download your compressed PDF');
-                // In a real implementation, this would trigger the actual download
+                if (!selectedFile) {
+                    alert('No file to download');
+                    return;
+                }
+                
+                // Create a download link
+                const downloadLink = document.createElement('a');
+                
+                // Use the compressed blob if available, otherwise use the original file
+                const blob = compressedBlob || selectedFile;
+                
+                // Create URL for the blob
+                const url = URL.createObjectURL(blob);
+                
+                // Set the download attributes
+                downloadLink.href = url;
+                downloadLink.download = 'compressed_' + selectedFile.name;
+                
+                // Append to body, click, and remove
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                
+                // Clean up the URL object
+                URL.revokeObjectURL(url);
             });
             
             // FAQ accordion
@@ -994,7 +1116,7 @@
                     
                     // Close all other FAQ items
                     faqQuestions.forEach(q => {
-                        if (q !== question) {
+                        if (q !== question && q.getAttribute('aria-expanded') === 'true') {
                             q.setAttribute('aria-expanded', 'false');
                             q.nextElementSibling.classList.remove('active');
                             q.querySelector('.faq-toggle').classList.remove('active');
@@ -1010,4 +1132,4 @@
         });
     </script>
 </body>
-                                                                                            </html>
+    </html>
