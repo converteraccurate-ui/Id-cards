@@ -16,6 +16,7 @@
             --dark: #222222;
             --gray: #666666;
             --light-gray: #e0e0e0;
+            --success-green: #4CAF50;
             --border-radius: 12px;
             --border-radius-xl: 20px;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -66,6 +67,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            text-decoration: none;
         }
 
         .logo-icon {
@@ -199,6 +201,15 @@
 
         .btn-secondary:hover {
             background: #d1d5db;
+        }
+
+        .btn-success {
+            background: var(--success-green);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #3d9c36;
         }
 
         .btn:disabled {
@@ -393,6 +404,28 @@
         .download-desc {
             font-size: 0.85rem;
             color: var(--gray);
+        }
+
+        /* Result Section */
+        .result-section {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: var(--border-radius);
+            border: 2px dashed var(--success-green);
+            text-align: center;
+        }
+
+        .result-section h3 {
+            color: var(--success-green);
+            margin-bottom: 10px;
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            color: var(--success-green);
+            margin-bottom: 15px;
         }
 
         /* Sidebar */
@@ -690,12 +723,12 @@
     <header>
         <div class="container header-container">
             <a href="/" class="logo">
-                <span class="logo-icon">馃洜锔�</span>
+                <span class="logo-icon">🛠️</span>
                 <span>ToolHub</span>
             </a>
             
             <nav>
-                <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">鈽�</button>
+                <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">☰</button>
                 <ul class="nav-menu">
                     <li><a href="/#tools" class="nav-link">Tools</a></li>
                     <li><a href="/#benefits" class="nav-link">Why Choose Us</a></li>
@@ -803,28 +836,15 @@
                     <button class="btn" id="processBtn" style="width: 100%; margin-top: 20px;" disabled>Process Image</button>
                 </div>
 
-                <!-- Download Options -->
-                <div class="download-options">
-                    <div class="download-option active" id="normalDownload">
-                        <div class="download-icon">
-                            <i class="fas fa-download"></i>
-                        </div>
-                        <div class="download-name">Normal Quality</div>
-                        <div class="download-desc">Smaller file size, faster download</div>
+                <!-- Result Section -->
+                <div class="result-section" id="resultSection">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
                     </div>
-                    <div class="download-option" id="hdDownload">
-                        <div class="download-icon">
-                            <i class="fas fa-hd"></i>
-                        </div>
-                        <div class="download-name">HD Quality</div>
-                        <div class="download-desc">Higher resolution, better quality</div>
-                    </div>
+                    <h3>Conversion Complete!</h3>
+                    <p>Your image with removed background is ready for download</p>
+                    <button class="btn btn-success" id="downloadBtn">Download Image</button>
                 </div>
-
-                <!-- Download Button -->
-                <button class="btn" id="downloadBtn" style="width: 100%; margin-top: 20px;" disabled>
-                    <i class="fas fa-download"></i> Download Image
-                </button>
             </div>
 
             <!-- Sidebar -->
@@ -962,6 +982,7 @@
             const originalPreview = document.getElementById('originalPreview');
             const resultPreview = document.getElementById('resultPreview');
             const processBtn = document.getElementById('processBtn');
+            const resultSection = document.getElementById('resultSection');
             const downloadBtn = document.getElementById('downloadBtn');
             
             // Tool Options
@@ -981,10 +1002,6 @@
             const colorOptions = document.querySelectorAll('.color-option');
             const customColor = document.getElementById('customColor');
             
-            // Download Options
-            const normalDownload = document.getElementById('normalDownload');
-            const hdDownload = document.getElementById('hdDownload');
-            
             // Mobile Menu
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const navMenu = document.querySelector('.nav-menu');
@@ -992,7 +1009,7 @@
             let uploadedImage = null;
             let currentTool = 'autoRemove';
             let selectedColor = '#ffffff';
-            let downloadQuality = 'normal';
+            let processedImageData = null;
             
             // Event Listeners
             browseBtn.addEventListener('click', () => fileInput.click());
@@ -1029,10 +1046,6 @@
                 selectedColor = customColor.value;
                 updateBackgroundColor();
             });
-            
-            // Download Options
-            normalDownload.addEventListener('click', () => selectDownloadOption('normal'));
-            hdDownload.addEventListener('click', () => selectDownloadOption('hd'));
             
             // Process and Download
             processBtn.addEventListener('click', processImage);
@@ -1085,6 +1098,9 @@
                     
                     // Enable process button
                     processBtn.disabled = false;
+                    
+                    // Hide result section if showing
+                    resultSection.style.display = 'none';
                 };
                 reader.readAsDataURL(file);
             }
@@ -1123,19 +1139,9 @@
             
             function updateBackgroundColor() {
                 // In a real implementation, this would update the background color
-                if (currentTool === 'addBackground') {
+                if (currentTool === 'addBackground' && processedImageData) {
                     resultPreview.style.backgroundColor = selectedColor;
                 }
-            }
-            
-            function selectDownloadOption(quality) {
-                downloadQuality = quality;
-                
-                // Update active download option
-                normalDownload.classList.remove('active');
-                hdDownload.classList.remove('active');
-                
-                document.getElementById(`${quality}Download`).classList.add('active');
             }
             
             function processImage() {
@@ -1164,33 +1170,38 @@
                             resultPreview.style.backgroundColor = 'transparent';
                         }
                         
-                        // Enable download button
-                        downloadBtn.disabled = false;
+                        // Store processed image data
+                        processedImageData = e.target.result;
+                        
+                        // Show result section
+                        resultSection.style.display = 'block';
                         
                         // Reset process button
                         processBtn.disabled = false;
                         processBtn.textContent = 'Process Image';
+                        
+                        // Scroll to result
+                        resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     };
                     reader.readAsDataURL(uploadedImage);
                 }, 2000);
             }
             
             function downloadImage() {
-                if (!uploadedImage) {
+                if (!processedImageData) {
                     alert('Please process an image first.');
                     return;
                 }
                 
-                // In a real implementation, this would download the processed image
-                alert(`Downloading ${downloadQuality} quality image. In a real implementation, this would download the actual processed file.`);
-                
-                // Simulate download
+                // Create download link
                 const downloadLink = document.createElement('a');
-                downloadLink.href = '#';
-                downloadLink.download = `background-removed-${downloadQuality}.png`;
+                downloadLink.href = processedImageData;
+                downloadLink.download = 'background-removed.png';
+                document.body.appendChild(downloadLink);
                 downloadLink.click();
+                document.body.removeChild(downloadLink);
             }
         });
     </script>
 </body>
-    </html>
+                        </html>
