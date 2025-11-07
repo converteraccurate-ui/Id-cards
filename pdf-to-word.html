@@ -7,14 +7,12 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://example.com/pdf-to-word">
     
-    <!-- Open Graph / Twitter Card -->
     <meta property="og:title" content="PDF to Word Converter - Free Online Tool">
     <meta property="og:description" content="Convert PDF files to editable Word documents with high accuracy.">
     <meta property="og:image" content="https://example.com/og-image.jpg">
     <meta property="og:url" content="https://example.com/pdf-to-word">
     <meta name="twitter:card" content="summary_large_image">
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -42,6 +40,7 @@
             --border-radius-xl: 20px;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             --transition: all 0.3s ease;
+            --success-green: #4CAF50;
         }
         
         body {
@@ -78,6 +77,7 @@
         a {
             color: inherit;
             text-decoration: none;
+            outline: none; /* Focus handled by :focus-visible */
         }
         
         /* Layout */
@@ -142,6 +142,7 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--dark);
+            outline: none; /* Focus handled by :focus-visible */
         }
         
         /* Tool Section */
@@ -179,11 +180,21 @@
             margin-bottom: 2rem;
             transition: var(--transition);
             cursor: pointer;
+            outline: none; /* Focus handled by :focus-visible */
         }
-        
+
+        /* Added focus style for accessibility */
+        .upload-area:focus-within, 
         .upload-area:hover {
             border-color: var(--baby-pink-darker);
             background-color: var(--off-white);
+        }
+        
+        .upload-area:focus-visible {
+            border-color: var(--baby-pink-darker);
+            background-color: var(--off-white);
+            outline: 3px solid rgba(255, 192, 203, 0.7); /* Focus ring for keyboard users */
+            outline-offset: 3px;
         }
         
         .upload-icon {
@@ -208,13 +219,37 @@
             cursor: pointer;
             font-size: 1rem;
             box-shadow: var(--shadow);
+            outline: none; /* Focus handled by :focus-visible */
         }
         
         .btn:hover {
             background-color: var(--baby-pink-dark);
             transform: translateY(-2px);
         }
+
+        .btn-success {
+            background-color: var(--success-green);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #45a049;
+        }
         
+        /* Added general focus style for accessibility */
+        .btn:focus-visible, 
+        .nav-link:focus-visible, 
+        .tool-card:focus-visible,
+        .mobile-menu-btn:focus-visible,
+        a:focus-visible {
+            box-shadow: 0 0 0 3px rgba(255, 192, 203, 0.7);
+            outline: none;
+        }
+
+        .btn:focus-visible {
+            transform: translateY(-2px); /* Maintain hover style on focus */
+        }
+
         .btn-full {
             width: 100%;
             margin-top: 1.5rem;
@@ -293,7 +328,10 @@
             box-shadow: var(--shadow);
         }
         
+        /* Changed div to button for correct semantics and accessibility */
         .faq-question {
+            width: 100%; /* Make it a full-width button */
+            text-align: left;
             padding: 1.5rem;
             display: flex;
             justify-content: space-between;
@@ -301,17 +339,24 @@
             cursor: pointer;
             font-weight: 600;
             transition: var(--transition);
+            background-color: var(--white); /* Explicit background */
+            border: none; /* Remove default button border */
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--dark);
+            outline: none; /* Focus handled by :focus-visible */
         }
         
         .faq-question:hover {
             background-color: var(--baby-pink);
         }
-        
+
+        /* Improved transition and max-height for smooth accordion */
         .faq-answer {
             padding: 0 1.5rem;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.5s ease-in-out;
         }
         
         .faq-answer.active {
@@ -321,6 +366,7 @@
         
         .faq-toggle {
             transition: transform 0.3s ease;
+            display: inline-block; /* Required for transform */
         }
         
         .faq-toggle.active {
@@ -357,6 +403,27 @@
             font-size: 2rem;
             margin-bottom: 1rem;
             display: block;
+        }
+
+        /* Result Section */
+        .result-success {
+            display: none;
+            margin-top: 2rem;
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: var(--border-radius);
+            border: 2px dashed var(--success-green);
+        }
+
+        .result-success h3 {
+            color: var(--success-green);
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--success-green);
         }
         
         /* Footer */
@@ -480,19 +547,17 @@
     </style>
 </head>
 <body>
-    <!-- Skip link for keyboard navigation -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
-    <!-- Header -->
     <header>
         <div class="container header-container">
             <a href="/" class="logo">
-                <span class="logo-icon">馃洜锔�</span>
+                <span class="logo-icon">ToolHub</span>
                 <span>ToolHub</span>
             </a>
             
             <nav>
-                <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">鈽�</button>
+                <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">☰</button>
                 <ul class="nav-menu">
                     <li><a href="/" class="nav-link">Home</a></li>
                     <li><a href="/#tools" class="nav-link">All Tools</a></li>
@@ -504,16 +569,14 @@
     </header>
     
     <main id="main-content">
-        <!-- Tool Hero Section -->
         <section class="tool-hero">
             <div class="container">
-                <span class="tool-icon-large">馃摑</span>
+                <span class="tool-icon-large">📄→📝</span>
                 <h1>PDF to Word Converter</h1>
                 <p>Convert PDF files to editable Word documents with high accuracy</p>
             </div>
         </section>
         
-        <!-- Tool Section -->
         <section class="tool-section">
             <div class="container">
                 <div class="tool-content">
@@ -521,8 +584,8 @@
                         <h2>Convert PDF to Word</h2>
                         <p>Upload your PDF file to convert it to an editable Word document</p>
                         
-                        <div class="upload-area" id="uploadArea">
-                            <div class="upload-icon">馃搧</div>
+                        <div class="upload-area" id="uploadArea" role="button" tabindex="0" aria-controls="fileInput">
+                            <div class="upload-icon">📁</div>
                             <h3>Drag & Drop PDF File Here</h3>
                             <p>or click to browse files</p>
                             <p class="small">Supports PDF files (Max 50MB)</p>
@@ -539,7 +602,7 @@
                                 <span>Conversion Accuracy</span>
                                 <span>95%</span>
                             </div>
-                            <div class="meter-bar">
+                            <div class="meter-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="Conversion accuracy is 95%">
                                 <div class="meter-fill"></div>
                             </div>
                             <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gray);">
@@ -547,12 +610,13 @@
                             </p>
                         </div>
                         
-                        <button class="btn btn-full" id="convertBtn">Convert to Word</button>
+                        <button class="btn btn-full" id="convertBtn" aria-live="polite">Convert to Word</button>
                         
-                        <div id="result" style="display: none; margin-top: 2rem; text-align: center;">
+                        <div id="result" class="result-success">
+                            <div class="success-icon">✓</div>
                             <h3>Conversion Complete!</h3>
                             <p>Your Word document is ready for download</p>
-                            <button class="btn" id="downloadBtn">Download Word Document</button>
+                            <button class="btn btn-success" id="downloadBtn">Download Word Document</button>
                         </div>
                     </div>
                     
@@ -562,71 +626,66 @@
                         
                         <h3>Key Features:</h3>
                         <ul class="features-list">
-                            <li><span class="feature-icon">鉁�</span> High accuracy text recognition</li>
-                            <li><span class="feature-icon">鉁�</span> Preserve formatting and layout</li>
-                            <li><span class="feature-icon">鉁�</span> Maintain images and tables</li>
-                            <li><span class="feature-icon">鉁�</span> Fast conversion process</li>
-                            <li><span class="feature-icon">鉁�</span> No registration required</li>
-                            <li><span class="feature-icon">鉁�</span> Secure file processing</li>
+                            <li><span class="feature-icon">✓</span> High accuracy text recognition</li>
+                            <li><span class="feature-icon">✓</span> Preserve formatting and layout</li>
+                            <li><span class="feature-icon">✓</span> Maintain images and tables</li>
+                            <li><span class="feature-icon">✓</span> Fast conversion process</li>
+                            <li><span class="feature-icon">✓</span> No registration required</li>
+                            <li><span class="feature-icon">✓</span> Secure file processing</li>
                         </ul>
                         
                         <h3>Perfect For:</h3>
                         <ul class="features-list">
-                            <li><span class="feature-icon">馃搵</span> Editing scanned documents</li>
-                            <li><span class="feature-icon">馃搼</span> Updating old PDF files</li>
-                            <li><span class="feature-icon">馃帗</span> Academic papers and research</li>
-                            <li><span class="feature-icon">馃搳</span> Business documents and reports</li>
+                            <li><span class="feature-icon">📝</span> Editing scanned documents</li>
+                            <li><span class="feature-icon">🔄</span> Updating old PDF files</li>
+                            <li><span class="feature-icon">🎓</span> Academic papers and research</li>
+                            <li><span class="feature-icon">💼</span> Business documents and reports</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- FAQ Section -->
-        <section class="faq">
+        <section class="faq" id="faq">
             <div class="container">
                 <h2 class="section-title">Frequently Asked Questions</h2>
                 <div class="faq-container">
-                    <!-- FAQ 1 -->
                     <div class="faq-item">
-                        <div class="faq-question" aria-expanded="false">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1" id="faq-q-1">
                             <span>How accurate is the PDF to Word conversion?</span>
-                            <span class="faq-toggle">鈻�</span>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="faq-toggle">▼</span>
+                        </button>
+                        <div id="faq-answer-1" class="faq-answer" role="region" aria-labelledby="faq-q-1">
                             <p>Our converter achieves approximately 95% accuracy for text-based PDFs. Complex formatting, images, and scanned documents may have slightly lower accuracy but are generally well-preserved.</p>
                         </div>
                     </div>
                     
-                    <!-- FAQ 2 -->
                     <div class="faq-item">
-                        <div class="faq-question" aria-expanded="false">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2" id="faq-q-2">
                             <span>Can I convert scanned PDF documents?</span>
-                            <span class="faq-toggle">鈻�</span>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="faq-toggle">▼</span>
+                        </button>
+                        <div id="faq-answer-2" class="faq-answer" role="region" aria-labelledby="faq-q-2">
                             <p>Yes, our tool uses OCR (Optical Character Recognition) technology to convert scanned PDFs into editable text. The accuracy depends on the scan quality and font clarity.</p>
                         </div>
                     </div>
                     
-                    <!-- FAQ 3 -->
                     <div class="faq-item">
-                        <div class="faq-question" aria-expanded="false">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3" id="faq-q-3">
                             <span>Will images and tables be preserved?</span>
-                            <span class="faq-toggle">鈻�</span>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="faq-toggle">▼</span>
+                        </button>
+                        <div id="faq-answer-3" class="faq-answer" role="region" aria-labelledby="faq-q-3">
                             <p>Yes, images, tables, and most formatting elements are preserved during conversion. Complex layouts may require minor adjustments in Word.</p>
                         </div>
                     </div>
                     
-                    <!-- FAQ 4 -->
                     <div class="faq-item">
-                        <div class="faq-question" aria-expanded="false">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4" id="faq-q-4">
                             <span>What Word format will my file be converted to?</span>
-                            <span class="faq-toggle">鈻�</span>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="faq-toggle">▼</span>
+                        </button>
+                        <div id="faq-answer-4" class="faq-answer" role="region" aria-labelledby="faq-q-4">
                             <p>Files are converted to the modern DOCX format, which is compatible with Microsoft Word 2007 and later, as well as free alternatives like Google Docs and LibreOffice.</p>
                         </div>
                     </div>
@@ -634,25 +693,24 @@
             </div>
         </section>
         
-        <!-- Related Tools Section -->
         <section class="related-tools">
             <div class="container">
                 <h2 class="section-title">Related Tools</h2>
                 <div class="tools-grid">
                     <a href="/word-to-pdf" class="tool-card">
-                        <span class="tool-card-icon">馃搫</span>
+                        <span class="tool-card-icon">📝→📄</span>
                         <h3>Word to PDF</h3>
                         <p>Convert Word documents to PDF format</p>
                     </a>
                     
                     <a href="/compress-pdf" class="tool-card">
-                        <span class="tool-card-icon">馃棞锔�</span>
+                        <span class="tool-card-icon">📄↓</span>
                         <h3>Compress PDF</h3>
                         <p>Reduce PDF file size without quality loss</p>
                     </a>
                     
                     <a href="/merge-pdf" class="tool-card">
-                        <span class="tool-card-icon">馃攢</span>
+                        <span class="tool-card-icon">📄+</span>
                         <h3>Merge PDF</h3>
                         <p>Combine multiple PDFs into one document</p>
                     </a>
@@ -661,7 +719,6 @@
         </section>
     </main>
     
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -711,7 +768,6 @@
         </div>
     </footer>
     
-    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -735,20 +791,19 @@
     }
     </script>
     
-    <!-- JavaScript -->
     <script>
-        // Mobile menu toggle
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const navMenu = document.querySelector('.nav-menu');
             
+            // --- Mobile Menu Toggle ---
             mobileMenuBtn.addEventListener('click', function() {
-                navMenu.classList.toggle('active');
                 const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+                this.setAttribute('aria-expanded', !isExpanded);
+                navMenu.classList.toggle('active');
             });
             
-            // File upload functionality
+            // --- File Upload Functionality ---
             const uploadArea = document.getElementById('uploadArea');
             const fileInput = document.getElementById('fileInput');
             const fileInfo = document.getElementById('fileInfo');
@@ -758,28 +813,33 @@
             const downloadBtn = document.getElementById('downloadBtn');
             
             let selectedFile = null;
+            const MAX_SIZE = 50 * 1024 * 1024; // 50MB in bytes
             
-            // Click on upload area triggers file input
+            // Click/Enter/Space on upload area triggers file input (Added keyboard support)
             uploadArea.addEventListener('click', function() {
                 fileInput.click();
+            });
+
+            uploadArea.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    fileInput.click();
+                }
             });
             
             // Drag and drop functionality
             uploadArea.addEventListener('dragover', function(e) {
                 e.preventDefault();
-                uploadArea.style.borderColor = 'var(--baby-pink-darker)';
-                uploadArea.style.backgroundColor = 'var(--off-white)';
+                // CSS handles hover styles
             });
             
             uploadArea.addEventListener('dragleave', function() {
-                uploadArea.style.borderColor = 'var(--baby-pink)';
-                uploadArea.style.backgroundColor = 'transparent';
+                // CSS handles hover styles
             });
             
             uploadArea.addEventListener('drop', function(e) {
                 e.preventDefault();
-                uploadArea.style.borderColor = 'var(--baby-pink)';
-                uploadArea.style.backgroundColor = 'transparent';
+                // CSS handles hover styles reset
                 
                 if (e.dataTransfer.files.length > 0) {
                     handleFile(e.dataTransfer.files[0]);
@@ -791,21 +851,32 @@
                 if (this.files.length > 0) {
                     handleFile(this.files[0]);
                 }
+                // Clear the file input value so selecting the same file triggers change event again
+                this.value = ''; 
             });
             
             // Handle selected file
             function handleFile(file) {
+                
                 // Check if file is a PDF
                 const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
                 
                 if (fileExtension !== '.pdf') {
-                    alert('Please select a valid PDF file');
+                    alert('Please select a valid PDF file (.pdf)');
                     return;
                 }
                 
+                // Check file size
+                if (file.size > MAX_SIZE) {
+                    alert(`File size exceeds the 50MB limit. Your file is ${formatFileSize(file.size)}.`);
+                    return;
+                }
+
                 selectedFile = file;
                 fileName.textContent = `${file.name} (${formatFileSize(file.size)})`;
                 fileInfo.style.display = 'block';
+                result.style.display = 'none'; // Hide result on new file selection
+                convertBtn.disabled = false;
             }
             
             // Format file size
@@ -835,17 +906,41 @@
                     result.style.display = 'block';
                     
                     // Scroll to result
-                    result.scrollIntoView({ behavior: 'smooth' });
+                    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 2500);
             });
             
-            // Download button click
+            // Download button click - FIXED
             downloadBtn.addEventListener('click', function() {
-                alert('In a real application, this would download your Word document');
-                // In a real implementation, this would trigger the actual download
+                if (!selectedFile) {
+                    alert('No file to download');
+                    return;
+                }
+                
+                // Create a download link
+                const downloadLink = document.createElement('a');
+                
+                // Create a Blob with some sample content (in a real app, this would be the converted file)
+                const blob = new Blob(['This is a simulated Word document. In a real application, this would be the converted content from your PDF.'], 
+                                    { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+                
+                // Create URL for the blob
+                const url = URL.createObjectURL(blob);
+                
+                // Set the download attributes
+                downloadLink.href = url;
+                downloadLink.download = selectedFile.name.replace('.pdf', '.docx');
+                
+                // Append to body, click, and remove
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                
+                // Clean up the URL object
+                URL.revokeObjectURL(url);
             });
             
-            // FAQ accordion
+            // --- FAQ Accordion ---
             const faqQuestions = document.querySelectorAll('.faq-question');
             
             faqQuestions.forEach(question => {
@@ -856,7 +951,7 @@
                     
                     // Close all other FAQ items
                     faqQuestions.forEach(q => {
-                        if (q !== question) {
+                        if (q !== question && q.getAttribute('aria-expanded') === 'true') {
                             q.setAttribute('aria-expanded', 'false');
                             q.nextElementSibling.classList.remove('active');
                             q.querySelector('.faq-toggle').classList.remove('active');
@@ -872,4 +967,4 @@
         });
     </script>
 </body>
-    </html>
+                                </html>
